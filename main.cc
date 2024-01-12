@@ -10,7 +10,6 @@
 #include <QHeaderView>
 #include <QMouseEvent>
 
-
 #include <thread>
 #include <chrono>
 
@@ -62,43 +61,115 @@ int main(int argc, char *argv[])
     // Set background image using a style sheet
     window.setStyleSheet("background-image: url('/home/vivi_z/C++/Projet/Image/fond.jpg');");
 
-    Game game(20);
-    game.run();
+    //Game game(20);
+    //game.run();
+
+    QLabel *Court = new QLabel(&window);
+    QPixmap pixmap_court("/home/vivi_z/C++/Projet/Image/sunscourt.png");
+    pixmap_court = pixmap_court.scaled(1460, 1460, Qt::KeepAspectRatio);
+    Court->setPixmap(pixmap_court);
+    Court->move(20, 20);
+    Court->show();
     
     QLabel *PointGuard1 = new QLabel(&window);
-    updatePlayerImageLabel(PointGuard1, team1[1], 10, 10, 400);
+    updatePlayerImageLabel(PointGuard1, team1[1], 550, 309, 226);
+
+    QLabel *PointGuard1Text = new QLabel(&window);
+    PointGuard1Text->setStyleSheet("border: 2px solid black;"); // You can adjust the border size and color
+    PointGuard1Text->setFixedSize(180, 40);
+    PointGuard1Text->setText(QString("%1 %2\nATQ: %3 DEF: %4 VIT: %5")
+                            .arg(team1[1]->getPrenom().c_str())
+                            .arg(team1[1]->getNom().c_str())
+                            .arg(team1[1]->getATQ())
+                            .arg(team1[1]->getDEF())
+                            .arg(team1[1]->getVIT()));
+    PointGuard1Text->setAlignment(Qt::AlignCenter); // Centrer le texte
+    PointGuard1Text->move(540, 535);
+    PointGuard1Text->show();
 
     QLabel *ShootingGuard1 = new QLabel(&window);
-    updatePlayerImageLabel(ShootingGuard1, team1[2], 10, 410, 120);
+    updatePlayerImageLabel(ShootingGuard1, team1[2], 350, 410, 226);
+
+    QLabel *ShootingGuard1Text = new QLabel(&window);
+    ShootingGuard1Text->setStyleSheet("border: 2px solid black;"); // You can adjust the border size and color
+    ShootingGuard1Text->setFixedSize(180, 40);
+    ShootingGuard1Text->setText(QString("%1 %2\nATQ: %3 DEF: %4 VIT: %5")
+                            .arg(team1[2]->getPrenom().c_str())
+                            .arg(team1[2]->getNom().c_str())
+                            .arg(team1[2]->getATQ())
+                            .arg(team1[2]->getDEF())
+                            .arg(team1[2]->getVIT()));
+    ShootingGuard1Text->setAlignment(Qt::AlignCenter); // Centrer le texte
+    ShootingGuard1Text->move(340, 636);
+    ShootingGuard1Text->show();
 
     QLabel *SmallForward1 = new QLabel(&window);
-    updatePlayerImageLabel(SmallForward1, team1[3], 95, 410, 120);
+    updatePlayerImageLabel(SmallForward1, team1[3], 350, 120, 226);
+
+    QLabel *SmallForwardText = new QLabel(&window);
+    SmallForwardText->setStyleSheet("border: 2px solid black;"); // You can adjust the border size and color
+    SmallForwardText->setFixedSize(180, 40);
+    SmallForwardText->setText(QString("%1 %2\nATQ: %3 DEF: %4 VIT: %5")
+                            .arg(team1[3]->getPrenom().c_str())
+                            .arg(team1[3]->getNom().c_str())
+                            .arg(team1[3]->getATQ())
+                            .arg(team1[3]->getDEF())
+                            .arg(team1[3]->getVIT()));
+    SmallForwardText->setAlignment(Qt::AlignCenter); // Centrer le texte
+    SmallForwardText->move(340, 346);
+    SmallForwardText->show();
 
     QLabel *PowardForward1 = new QLabel(&window);
-    updatePlayerImageLabel(PowardForward1, team1[4], 180, 410, 120);
+    updatePlayerImageLabel(PowardForward1, team1[4], 150, 450, 226);
+
+    QLabel *PowardForward1Text = new QLabel(&window);
+    PowardForward1Text->setStyleSheet("border: 2px solid black;"); // You can adjust the border size and color
+    PowardForward1Text->setFixedSize(180, 40);
+    PowardForward1Text->setText(QString("%1 %2\nATQ: %3 DEF: %4 VIT: %5")
+                            .arg(team1[4]->getPrenom().c_str())
+                            .arg(team1[4]->getNom().c_str())
+                            .arg(team1[4]->getATQ())
+                            .arg(team1[4]->getDEF())
+                            .arg(team1[4]->getVIT()));
+    PowardForward1Text->setAlignment(Qt::AlignCenter); // Centrer le texte
+    PowardForward1Text->move(140, 676);
+    PowardForward1Text->show();
 
     QLabel *Center1 = new QLabel(&window);
-    updatePlayerImageLabel(Center1, team1[5], 265, 410, 120);
+    updatePlayerImageLabel(Center1, team1[5], 150, 160, 226);
+
+    QLabel *Center1Text = new QLabel(&window);
+    Center1Text->setStyleSheet("border: 2px solid black;"); // You can adjust the border size and color
+    Center1Text->setFixedSize(180, 40);
+    Center1Text->setText(QString("%1 %2\nATQ: %3 DEF: %4 VIT: %5")
+                            .arg(team1[5]->getPrenom().c_str())
+                            .arg(team1[5]->getNom().c_str())
+                            .arg(team1[5]->getATQ())
+                            .arg(team1[5]->getDEF())
+                            .arg(team1[5]->getVIT()));
+    Center1Text->setAlignment(Qt::AlignCenter); // Centrer le texte
+    Center1Text->move(140, 386);
+    Center1Text->show();
 
     QLabel *textLabel1 = new QLabel(&window);
-    textLabel1->setStyleSheet("border: 2px solid black;"); // You can adjust the border size and color
-    textLabel1->setFixedSize(230, 150);
-    updatePlayerLabel(textLabel1, team1[1], 10, 540);
+    //textLabel1->setStyleSheet("border: 2px solid black;"); // You can adjust the border size and color
+    //textLabel1->setFixedSize(230, 150);
+    //updatePlayerLabel(textLabel1, team1[1], 10, 540);
 
     QLabel *PointGuard2 = new QLabel(&window);
-    updatePlayerImageLabel(PointGuard2, team2[1], 1206, 10, 400);
+    updatePlayerImageLabel(PointGuard2, team2[1], 790, 309, 226);
 
     QLabel *ShootingGuard2 = new QLabel(&window);
-    updatePlayerImageLabel(ShootingGuard2, team2[2], 1150, 410, 120);
+    updatePlayerImageLabel(ShootingGuard2, team2[2], 990, 410, 226);
 
     QLabel *SmallForward2 = new QLabel(&window);
-    updatePlayerImageLabel(SmallForward2, team2[3], 1235, 410, 120);
+    updatePlayerImageLabel(SmallForward2, team2[3], 990, 120, 226);
 
     QLabel *PowardForward2 = new QLabel(&window);
-    updatePlayerImageLabel(PowardForward2, team2[4], 1320, 410, 120);
+    updatePlayerImageLabel(PowardForward2, team2[4], 1190, 450, 226);
 
     QLabel *Center2 = new QLabel(&window);
-    updatePlayerImageLabel(Center2, team2[5], 1405, 410, 120);
+    updatePlayerImageLabel(Center2, team2[5], 1190, 160, 226);
 
     QLabel *textLabel2 = new QLabel(&window);
     textLabel2->setStyleSheet("border: 2px solid black;"); // You can adjust the border size and color
@@ -323,13 +394,6 @@ int main(int argc, char *argv[])
             updatePlayerLabel(textLabel2, team2[1], 1260, 540);
         }
     });
-
-    QLabel *Court = new QLabel(&window);
-    QPixmap pixmap_court("/home/vivi_z/C++/Projet/Image/sunscourt.png");
-    pixmap_court = pixmap_court.scaled(750, 750, Qt::KeepAspectRatio);
-    Court->setPixmap(pixmap_court);
-    Court->move(375, 20);
-    Court->show();
 
     QLabel *Logo = new QLabel(&window);
     QPixmap pixmap_logo("/home/vivi_z/C++/Projet/Image/logo.png");
