@@ -18,6 +18,11 @@
 #include "fonctions.hh"
 #include "question.hh"
 #include "clickablelabel.hh"
+#include "center.hh"
+#include "powerforward.hh"
+#include "smallforward.hh"
+#include "shootingguard.hh"
+#include "pointguard.hh"
 #include "lib/basketball/include/Game.h"
 
 using namespace std;
@@ -164,19 +169,13 @@ int main(int argc, char *argv[])
             
             if(action2==1){
                 if(action1==1){
-                    if(team1[poste]->getATQ() > joueurChoisi->getATQ()){
-                        matches[3]->setScore1(matches[3]->getScore1() + team1[poste]->getATQ()-joueurChoisi->getATQ());
-                        Info1->setText(QString("%1 %2 marque %3 points")
-                                        .arg(team1[poste]->getPrenom().c_str())
-                                        .arg(team1[poste]->getNom().c_str())
-                                        .arg(team1[poste]->getATQ()-joueurChoisi->getATQ()));
-                    } else if(team1[poste]->getATQ() < joueurChoisi->getATQ()){
-                        matches[3]->setScore2(matches[3]->getScore2() + joueurChoisi->getATQ()-team1[poste]->getATQ());
-                        Info1->setText(QString("%1 %2 marque %3 points")
-                                        .arg(joueurChoisi->getPrenom().c_str())
-                                        .arg(joueurChoisi->getNom().c_str())
-                                        .arg(joueurChoisi->getATQ()-team1[poste]->getATQ()));
-                    } else {
+                    team1[poste]->atq2atq(joueurChoisi, Info1, questions, matches);
+                    if(team1[poste]->getATQ() == joueurChoisi->getATQ()){
+                        askQuestion(Info1, team1[poste], matches, questions);
+                    }
+                } else if (action1==2) {
+                    team1[poste]->def2atq(joueurChoisi, Info1, questions, matches);
+                    if(team1[poste]->getDEF() == joueurChoisi->getATQ()){
                         askQuestion(Info1, team1[poste], matches, questions);
                     }
                 }
@@ -207,6 +206,7 @@ int main(int argc, char *argv[])
                 action2 = Action(joueurChoisi, Info2);
             }
             
+            action1 = 0;
             horloge++;
             updatePlayerImageLabelAll(PointGuard1, ShootingGuard1, SmallForward1, PowardForward1, Center1, 
                                     PointGuard2, ShootingGuard2, SmallForward2, PowardForward2, Center2, 

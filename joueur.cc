@@ -35,7 +35,7 @@ map<int, joueur*> createPlayers()
     for (int i = 1; i <= playerDetails.size(); ++i)
     {
         const auto& [nom, prenom, position, imagePath, ATQ, DEF, VIT] = playerDetails[i - 1];
-        std::string positionValue = std::get<3>(playerDetails[i - 1]);
+        std::string positionValue = std::get<2>(playerDetails[i - 1]);
 
         if(positionValue == "Center"){
             players[i] = new center(nom, prenom, position, imagePath, ATQ, DEF, VIT);
@@ -49,6 +49,7 @@ map<int, joueur*> createPlayers()
             players[i] = new pointguard(nom, prenom, position, imagePath, ATQ, DEF, VIT);
         } else {
             players[i] = new joueur(nom, prenom, position, imagePath, ATQ, DEF, VIT);
+            cout << "Erreur: position invalide" << endl;
         }
     }
     return players;

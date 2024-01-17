@@ -10,7 +10,7 @@
 #include <vector>
 #include <map>
 #include <mutex>
-#include "joueur.hh"
+class joueur; // Déclaration anticipée de joueur
 #include "match.hh"
 #include "question.hh"
 #include "clickablelabel.hh"
