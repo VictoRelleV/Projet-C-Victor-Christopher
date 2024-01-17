@@ -76,7 +76,7 @@ public:
         return _VIT;
     }
 
-    void atq100()
+    void atq100()//test
     {
         _ATQ += 100;
     }

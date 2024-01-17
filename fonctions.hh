@@ -15,7 +15,7 @@
 #include "question.hh"
 #include "clickablelabel.hh"
 
-void updateMatchLabel(QLabel *label, const match &currentMatch, int x, int y, int horloge);
+void updateMatchLabel(QLabel *label, match* currentMatch, int x, int y, int horloge);
 
 void updatePlayerImageLabel(QLabel *label, joueur* player, int x, int y, int size);
 void updatePlayerImageLabelAll(QLabel* PointGuard1, QLabel* ShootingGuard1, QLabel* SmallForward1, QLabel* PowardForward1, QLabel* Center1, 
@@ -27,11 +27,11 @@ void updatePlayerTextLabelAll(QLabel* PointGuard1Text, QLabel* ShootingGuard1Tex
                                 map<int, joueur*> team1);   
 
 void updateTeams(map<int, joueur*>& team1, map<int, joueur*>& team2);
-int endGame(QLabel* Info, map<int, joueur*> team1, map<int, joueur*> team2, map<int, match> matches, int horloge, int start, joueur* mvp);
+int endGame(QLabel* Info, map<int, joueur*> team1, map<int, joueur*> team2, map<int, match*> matches, int horloge, int start, joueur* mvp);
 void hideAfterDelay(QLabel *label);
 int Quizz(vector<Question> questions);
 void RandomUpdateTeams(map<int, joueur*>& team1, map<int, joueur*>& team2);
 void hideAfterDelay2(QWidget *window);
-int askQuestion(QLabel* Info1, joueur* player, map<int, match> matches, vector<Question> questions);
+void askQuestion(QLabel* Info1, joueur* player, map<int, match*> matches, vector<Question> questions);
 
 #endif

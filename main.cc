@@ -52,7 +52,7 @@ int main(int argc, char *argv[])
     map<int, joueur*> team2 = result.second;
 
     // Create match instance
-    map<int, match> matches = createMatches();
+    map<int, match*> matches = createMatches();
 
     // Create question
     vector<Question> questions = createQuestions();
@@ -159,29 +159,25 @@ int main(int argc, char *argv[])
     Play->setStyleSheet("border: 2px solid black;"); // You can adjust the border size and color
     Play->move(10, 760);
     QObject::connect(Play, &QPushButton::clicked, [&]() {
-        team1[1]->atq100();
-        cout << team1[1]->getATQ() << endl;
         start = endGame(Info1, team1, team2, matches, horloge, start, mvp);
         if(start == 1 && action1 != 0){
             
             if(action2==1){
                 if(action1==1){
                     if(team1[poste]->getATQ() > joueurChoisi->getATQ()){
-                        matches[3].setScore1(matches[3].getScore1() + team1[poste]->getATQ()-joueurChoisi->getATQ());
+                        matches[3]->setScore1(matches[3]->getScore1() + team1[poste]->getATQ()-joueurChoisi->getATQ());
                         Info1->setText(QString("%1 %2 marque %3 points")
                                         .arg(team1[poste]->getPrenom().c_str())
                                         .arg(team1[poste]->getNom().c_str())
                                         .arg(team1[poste]->getATQ()-joueurChoisi->getATQ()));
                     } else if(team1[poste]->getATQ() < joueurChoisi->getATQ()){
-                        matches[3].setScore2(matches[3].getScore2() + joueurChoisi->getATQ()-team1[poste]->getATQ());
+                        matches[3]->setScore2(matches[3]->getScore2() + joueurChoisi->getATQ()-team1[poste]->getATQ());
                         Info1->setText(QString("%1 %2 marque %3 points")
                                         .arg(joueurChoisi->getPrenom().c_str())
                                         .arg(joueurChoisi->getNom().c_str())
                                         .arg(joueurChoisi->getATQ()-team1[poste]->getATQ()));
                     } else {
-                        if(askQuestion(Info1, team1[poste], matches, questions) == 1){
-                            matches[3].setScore1(matches[3].getScore1() + 3);
-                        }
+                        askQuestion(Info1, team1[poste], matches, questions);
                     }
                 }
             }
@@ -189,21 +185,19 @@ int main(int argc, char *argv[])
             else if(action2==2){
                 if(action1==1){
                     if(team1[poste]->getATQ() > joueurChoisi->getDEF()){
-                        matches[3].setScore1(matches[3].getScore1() + team1[poste]->getATQ()-joueurChoisi->getDEF());
+                        matches[3]->setScore1(matches[3]->getScore1() + team1[poste]->getATQ()-joueurChoisi->getDEF());
                         Info1->setText(QString("%1 %2 marque %3 points")
                                         .arg(team1[poste]->getPrenom().c_str())
                                         .arg(team1[poste]->getNom().c_str())
                                         .arg(team1[poste]->getATQ()-joueurChoisi->getDEF()));
                     } else if(team1[poste]->getATQ() < joueurChoisi->getDEF()){
-                        matches[3].setScore2(matches[3].getScore2() + joueurChoisi->getDEF()-team1[poste]->getATQ());
+                        matches[3]->setScore2(matches[3]->getScore2() + joueurChoisi->getDEF()-team1[poste]->getATQ());
                         Info1->setText(QString("%1 %2 marque %3 points")
                                         .arg(joueurChoisi->getPrenom().c_str())
                                         .arg(joueurChoisi->getNom().c_str())
                                         .arg(joueurChoisi->getDEF()-team1[poste]->getATQ()));
                     } else {
-                        if(askQuestion(Info1, team1[poste], matches, questions) == 1){
-                            matches[3].setScore1(matches[3].getScore1() + 3);
-                        }
+                        askQuestion(Info1, team1[poste], matches, questions);
                     }
                 }
             }
@@ -230,8 +224,8 @@ int main(int argc, char *argv[])
         start = 0;
         timeouts = 0;
         action1 = 0;
-        matches[3].setScore1(0);
-        matches[3].setScore2(0);
+        matches[3]->setScore1(0);
+        matches[3]->setScore2(0);
         players = createPlayers();
         result = createTeams(players);
         team1 = result.first;

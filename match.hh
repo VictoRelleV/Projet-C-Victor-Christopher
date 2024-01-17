@@ -60,6 +60,6 @@ public:
     }
 };
 
-map<int, match> createMatches();
+map<int, match*> createMatches();
 
 #endif

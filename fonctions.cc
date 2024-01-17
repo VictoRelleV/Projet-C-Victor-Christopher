@@ -24,7 +24,7 @@
 using namespace std;
 
 // Fonction pour mettre à jour le texte d'un QLabel avec les données d'un match
-void updateMatchLabel(QLabel *label, const match &currentMatch, int x, int y, int horloge)
+void updateMatchLabel(QLabel *label, match* currentMatch, int x, int y, int horloge)
 {
     QString quarter;
     int adjustedHorloge = horloge;
@@ -43,10 +43,10 @@ void updateMatchLabel(QLabel *label, const match &currentMatch, int x, int y, in
     label->setText(QString("%1 %2:00\n%3 %4 - %5 %6")
                 .arg(quarter)
                 .arg(adjustedHorloge)
-                .arg(currentMatch.getEquipe1().c_str())
-                .arg(currentMatch.getScore1())
-                .arg(currentMatch.getEquipe2().c_str())
-                .arg(currentMatch.getScore2()));
+                .arg(currentMatch->getEquipe1().c_str())
+                .arg(currentMatch->getScore1())
+                .arg(currentMatch->getEquipe2().c_str())
+                .arg(currentMatch->getScore2()));
     label->move(x, y);
     label->setAlignment(Qt::AlignCenter); // Centrer le texte dans le label
     label->show();
@@ -128,26 +128,26 @@ void updateTeams(map<int, joueur*>& team1, map<int, joueur*>& team2) {
     }
 }
 
-int endGame(QLabel* Info, map<int, joueur*> team1, map<int, joueur*> team2, map<int, match> matches, int horloge, int start, joueur* mvp){
+int endGame(QLabel* Info, map<int, joueur*> team1, map<int, joueur*> team2, map<int, match*> matches, int horloge, int start, joueur* mvp){
     if(horloge>=48){
-        if(matches[3].getScore1() > matches[3].getScore2()){
+        if(matches[3]->getScore1() > matches[3]->getScore2()){
             for (int i = 1; i <= 5; ++i) {
                 cout << team1[i]->getPrenom() << " " << team1[i]->getNom() << " a marqué " << endl;
             }
             //mvp = getMVP(team1);
             mvp = team1[1];
             Info->setText(QString("Match terminé\n%1 gagne\n%2 %3 est le MVP du match avec points")
-                            .arg(matches[3].getEquipe1().c_str())
+                            .arg(matches[3]->getEquipe1().c_str())
                             .arg(mvp->getPrenom().c_str())
                             .arg(mvp->getNom().c_str()));
-        } else if(matches[3].getScore1() < matches[3].getScore2()){
+        } else if(matches[3]->getScore1() < matches[3]->getScore2()){
             for (int i = 1; i <= 5; ++i) {
                 cout << team2[i]->getPrenom() << " " << team2[i]->getNom() << " a marqué " << endl;
             }
             //mvp = getMVP(team2);
             mvp = team2[1];
             Info->setText(QString("Match terminé\n%1 gagne\n%2 %3 est le MVP du match avec points")
-                            .arg(matches[3].getEquipe2().c_str())
+                            .arg(matches[3]->getEquipe2().c_str())
                             .arg(mvp->getPrenom().c_str())
                             .arg(mvp->getNom().c_str()));
         } else {
@@ -216,10 +216,9 @@ void hideAfterDelay2(QWidget *window) {
     window->close();
 }
 
-int askQuestion(QLabel* Info1, joueur* player, map<int, match> matches, vector<Question> questions){
+void askQuestion(QLabel* Info1, joueur* player, map<int, match*> matches, vector<Question> questions){
     random_shuffle(questions.begin(), questions.end());
     int userAnswerIndex = Quizz(questions);
-    int answer = 0;
 
     // Traiter la réponse en fonction du bouton cliqué
     if (userAnswerIndex != -1) {
@@ -229,12 +228,12 @@ int askQuestion(QLabel* Info1, joueur* player, map<int, match> matches, vector<Q
                             .arg(player->getPrenom().c_str())
                             .arg(player->getNom().c_str()));
             //thread(hideAfterDelay, Shaq1).detach();
-            answer = 1;
+            matches[3]->setScore1(matches[3]->getScore1() + 3);
+
         } else {
             //Shaq2->show();
             Info1->setText(QString("Mauvaise réponse"));
             //thread(hideAfterDelay, Shaq2).detach();
         }
     }
-    return answer;
 }
