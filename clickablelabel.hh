@@ -1,31 +1,31 @@
+#ifndef CLICKABLELABEL_HH
+#define CLICKABLELABEL_HH
+
 #include <QLabel>
 #include <QWidget>
 #include <QMouseEvent>
+#include <iostream>
+
+#include "joueur.hh"
 
 class ClickableLabel : public QLabel {
 public:
-    ClickableLabel(QWidget *parent = nullptr) : QLabel(parent) {}
-    int score = 2;
-    int positionx = 0;
-    int positiony = 0;
+    ClickableLabel(const QString& playerName, int attack, int defense, int speed, int position, QWidget* parent = nullptr, QLabel* infoLabel = nullptr);
 
-    int getScore() const {
-    return score;
+    int getPosition() const {
+        return position;
     }
 
 protected:
-
-    // Surchargez la fonction mousePressEvent pour détecter les clics
-    void mousePressEvent(QMouseEvent *event) override {
-        if (event->button() == Qt::LeftButton) {
-            score++;
-            random_device rd;
-            mt19937 gen(rd());
-            uniform_int_distribution<> distribution1(0, 400);
-            positionx = distribution1(gen);
-            positiony = distribution1(gen);
-            this->move(positionx, positiony);
-            cout << "Score: " << score << endl;
-        }
-    }
+    void mousePressEvent(QMouseEvent *event) override;
+    
+private:
+    std::string playerName;
+    int attack;
+    int defense;
+    int speed;
+    int position;
+    QLabel* infoLabel; // Ajout du membre infoLabel
 };
+
+#endif

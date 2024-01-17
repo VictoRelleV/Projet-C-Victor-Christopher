@@ -1,3 +1,5 @@
+#include <QLabel>
+
 #include <map>
 #include <string>
 #include <vector>
@@ -12,18 +14,18 @@
 
 using namespace std;
 
-// List of player details (nom, prenom, OVR, position, team, imagePath)
-vector<tuple<string, string, int, string, string, string>> playerDetails = {
-    {"Butler", "Jimmy", 95, "Small Forward", "Heat", "/home/vivi_z/C++/Projet/Image/jimmy-butler.png"},
-    {"Bryant", "Kobe", 99, "Shooting Guard", "Lakers", "/home/vivi_z/C++/Projet/Image/kobe-bryant.png"},
-    {"James", "Lebron", 94, "Small Forward", "Lakers", "/home/vivi_z/C++/Projet/Image/lebron-james.png"},
-    {"Jordan", "Michael", 94, "Shooting Guard", "Bulls", "/home/vivi_z/C++/Projet/Image/michael-jordan.png"},
-    {"O'Neal", "Shaquille", 94, "Center", "Lakers", "/home/vivi_z/C++/Projet/Image/shaquille-o-neal.png"},
-    {"Durant", "Kevin", 94, "Small Forward", "Warriors", "/home/vivi_z/C++/Projet/Image/kevin-durant.png"},
-    {"Irving", "Kyrie", 94, "Point Guard", "Cavaliers", "/home/vivi_z/C++/Projet/Image/kyrie-irving.png"},
-    {"Thompson", "Klay", 91, "Shooting Guard", "Warriors", "/home/vivi_z/C++/Projet/Image/klay-thompson.png"},
-    {"Curry", "Stephen", 99, "Point Guard", "Warriors", "/home/vivi_z/C++/Projet/Image/stephen-curry.png"},
-    {"Iverson", "Allen", 94, "Point Guard", "Sixers", "/home/vivi_z/C++/Projet/Image/allen-iverson.png"}
+// List of player details (nom, prenom, position, imagePath)
+vector<tuple<string, string, string, string, int, int , int>> playerDetails = {
+    {"Butler", "Jimmy", "Small Forward", "/home/vivi_z/C++/Projet/Image/jimmy-butler.png", 93, 99, 92},
+    {"Bryant", "Kobe", "Shooting Guard", "/home/vivi_z/C++/Projet/Image/kobe-bryant.png", 99, 97, 85},
+    {"James", "Lebron", "Small Forward", "/home/vivi_z/C++/Projet/Image/lebron-james.png", 97, 97, 96},
+    {"Jordan", "Michael", "Shooting Guard", "/home/vivi_z/C++/Projet/Image/michael-jordan.png", 97, 94, 95},
+    {"O'Neal", "Shaquille", "Center", "/home/vivi_z/C++/Projet/Image/shaquille-o-neal.png", 94, 99, 87},
+    {"Durant", "Kevin", "Small Forward", "/home/vivi_z/C++/Projet/Image/kevin-durant.png", 98, 89, 90},
+    {"Irving", "Kyrie", "Point Guard", "/home/vivi_z/C++/Projet/Image/kyrie-irving.png", 97, 85, 93},
+    {"Thompson", "Klay", "Shooting Guard", "/home/vivi_z/C++/Projet/Image/klay-thompson.png", 92, 89, 78},
+    {"Curry", "Stephen", "Point Guard", "/home/vivi_z/C++/Projet/Image/stephen-curry.png", 99, 99, 99},
+    {"Iverson", "Allen", "Point Guard", "/home/vivi_z/C++/Projet/Image/allen-iverson.png", 96, 93, 98}
     };
 
 map<int, joueur*> createPlayers()
@@ -32,21 +34,21 @@ map<int, joueur*> createPlayers()
 
     for (int i = 1; i <= playerDetails.size(); ++i)
     {
-        const auto& [nom, prenom, OVR, position, team, imagePath] = playerDetails[i - 1];
+        const auto& [nom, prenom, position, imagePath, ATQ, DEF, VIT] = playerDetails[i - 1];
         std::string positionValue = std::get<3>(playerDetails[i - 1]);
 
         if(positionValue == "Center"){
-            players[i] = new center(nom, prenom, OVR, position, team, imagePath);
+            players[i] = new center(nom, prenom, position, imagePath, ATQ, DEF, VIT);
         } else if(positionValue == "Small Forward"){
-            players[i] = new smallforward(nom, prenom, OVR, position, team, imagePath);
+            players[i] = new smallforward(nom, prenom, position, imagePath, ATQ, DEF, VIT);
         } else if(positionValue == "Shooting Guard"){
-            players[i] = new shootingguard(nom, prenom, OVR, position, team, imagePath);
+            players[i] = new shootingguard(nom, prenom, position, imagePath, ATQ, DEF, VIT);
         } else if(positionValue == "Power Forward"){
-            players[i] = new powerforward(nom, prenom, OVR, position, team, imagePath);
+            players[i] = new powerforward(nom, prenom, position, imagePath, ATQ, DEF, VIT);
         } else if(positionValue == "Point Guard"){
-            players[i] = new pointguard(nom, prenom, OVR, position, team, imagePath);
+            players[i] = new pointguard(nom, prenom, position, imagePath, ATQ, DEF, VIT);
         } else {
-            players[i] = new joueur(nom, prenom, OVR, position, team, imagePath);
+            players[i] = new joueur(nom, prenom, position, imagePath, ATQ, DEF, VIT);
         }
     }
     return players;
@@ -83,4 +85,48 @@ pair<map<int, joueur*>, map<int, joueur*>> createTeams(map<int, joueur*> players
         }
     }
     return make_pair(team1, team2);
+}
+
+joueur* choisirJoueurAuHasard(map<int, joueur*>& equipe) {
+    // Vérifier si l'équipe n'est pas vide
+    if (equipe.empty()) {
+        std::cerr << "L'équipe est vide." << std::endl;
+        return nullptr;
+    }
+
+    // Initialiser un générateur de nombres aléatoires
+    std::random_device rd;
+    std::mt19937 gen(rd());
+
+    // Générer une position aléatoire dans la map
+    std::uniform_int_distribution<> distrib(0, equipe.size() - 1);
+    auto it = std::next(equipe.begin(), distrib(gen));
+
+    // Récupérer le joueur à la position aléatoire
+    return it->second;
+}
+
+int Action(joueur* joueur1, QLabel* Info){
+    // Utilise l'horloge pour initialiser le générateur de nombres aléatoires
+    std::random_device rd;
+    std::mt19937 gen(rd());
+
+    // Génère un nombre aléatoire entre 1 et 100
+    std::uniform_int_distribution<> distribution(1, 3);
+    int randomValue = distribution(gen);
+
+    if(randomValue == 1){
+        Info->setText(QString("%1 %2 utilise son ATQ")
+            .arg(joueur1->getPrenom().c_str())
+            .arg(joueur1->getNom().c_str()));
+    } else if(randomValue == 2){
+        Info->setText(QString("%1 %2 utilise sa DEF")
+            .arg(joueur1->getPrenom().c_str())
+            .arg(joueur1->getNom().c_str())); 
+    } else if(randomValue == 3){
+        Info->setText(QString("%1 %2 utilise sa VIT")
+            .arg(joueur1->getPrenom().c_str())
+            .arg(joueur1->getNom().c_str()));
+    }
+    return randomValue;
 }
