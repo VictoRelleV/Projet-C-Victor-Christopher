@@ -21,16 +21,19 @@ void ClickableLabel::mousePressEvent(QMouseEvent *event){
         QAction* selectedAction = menu.exec(event->globalPos());
 
         if (selectedAction == attackAction) {
-            infoLabel->setText(QString::number(attack));
-            std::cout << "ATQ " << this->playerName << this->attack << std::endl;
+            infoLabel->setText(QString("%1 utilise son ATQ: %3")
+                                    .arg(this->playerName.c_str())
+                                    .arg(this->attack));
             action1 = 1;
         } else if (selectedAction == defenseAction) {
-            infoLabel->setText(QString::number(defense));
-            std::cout << "DEF " << this->playerName << this->defense << std::endl;
+            infoLabel->setText(QString("%1 utilise sa DEF: %3")
+                                    .arg(this->playerName.c_str())
+                                    .arg(this->defense));
             action1 = 2;
         } else if (selectedAction == speedAction) {
-            infoLabel->setText(QString::number(speed));
-            std::cout << "VIT " << this->playerName << this->speed << std::endl;
+            infoLabel->setText(QString("%1 utilise sa VIT: %3")
+                                    .arg(this->playerName.c_str())
+                                    .arg(this->speed));
             action1 = 3;
         }
         poste = this->position;

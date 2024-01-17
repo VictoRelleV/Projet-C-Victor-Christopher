@@ -1,9 +1,13 @@
 #ifndef JOUEUR_HH
 #define JOUEUR_HH
 
+#include <QLabel>
+
 #include <string>
 #include <map>
 #include <random>
+
+#include "match.hh"
 
 using namespace std;
 
@@ -48,12 +52,20 @@ public:
         return _prenom;
     }
 
+    const string getName() const {
+        return _prenom+" "+_nom;
+    }
+
     const string& getPosition() const {
         return _position;
     }
 
     int getATQ() const {
         return _ATQ;
+    }
+
+    void setATQ(int ATQ) {
+        _ATQ = ATQ;
     }
 
     int getDEF() const {
@@ -63,6 +75,12 @@ public:
     int getVIT() const {
         return _VIT;
     }
+
+    void atq100()
+    {
+        _ATQ += 100;
+    }
+
 };
 
 map<int, joueur*> createPlayers();

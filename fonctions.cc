@@ -61,6 +61,32 @@ void updatePlayerImageLabel(QLabel* label, joueur* player, int posX, int posY, i
     label->show();
 }
 
+// Fonction pour mettre à jour le texte d'un QLabel avec les données d'un joueur
+void updatePlayerTextLabel(QLabel* label, joueur* player, int posX, int posY) {
+    label->setStyleSheet("border: 2px solid black;"); // You can adjust the border size and color
+    label->setFixedSize(180, 40);
+    label->setText(QString("%1 %2\nATQ: %3 DEF: %4 VIT: %5")
+                            .arg(player->getPrenom().c_str())
+                            .arg(player->getNom().c_str())
+                            .arg(player->getATQ())
+                            .arg(player->getDEF())
+                            .arg(player->getVIT()));
+    label->setAlignment(Qt::AlignCenter); // Centrer le texte
+    label->move(posX, posY);
+    label->show();
+}
+
+// Fonction pour mettre à jour le texte des QLabel avec les données d'un joueur
+void updatePlayerTextLabelAll(QLabel* PointGuard1Text, QLabel* ShootingGuard1Text, QLabel* SmallForwardText, QLabel* PowardForward1Text, QLabel* Center1Text,
+                                map<int, joueur*> team1) {
+
+    updatePlayerTextLabel(PointGuard1Text, team1[1], 540, 535);
+    updatePlayerTextLabel(ShootingGuard1Text, team1[2], 340, 636);
+    updatePlayerTextLabel(SmallForwardText, team1[3], 340, 346);
+    updatePlayerTextLabel(PowardForward1Text, team1[4], 140, 676);
+    updatePlayerTextLabel(Center1Text, team1[5], 140, 386);
+}
+
 // Fonction pour mettre à jour les images des joueurs de chaque équipe
 void updatePlayerImageLabelAll(QLabel* PointGuard1, QLabel* ShootingGuard1, QLabel* SmallForward1, QLabel* PowardForward1, QLabel* Center1, 
                                 QLabel* PointGuard2, QLabel* ShootingGuard2, QLabel* SmallForward2, QLabel* PowardForward2, QLabel* Center2, 
@@ -143,7 +169,7 @@ void hideAfterDelay(QLabel *label) {
 int Quizz(vector<Question> questions){
     QMessageBox msgBox;
     msgBox.setText(questions[0].questionText.c_str());
-    msgBox.setWindowTitle("Money In The Bank");
+    msgBox.setWindowTitle("Quizz");
     
     // Ajouter des boutons personnalisés
     QPushButton *buttonYes = msgBox.addButton(QString(questions[0].options[0].c_str()), QMessageBox::YesRole);
@@ -188,4 +214,27 @@ void RandomUpdateTeams(map<int, joueur*>& team1, map<int, joueur*>& team2) {
 void hideAfterDelay2(QWidget *window) {
     this_thread::sleep_for(chrono::seconds(5));
     window->close();
+}
+
+int askQuestion(QLabel* Info1, joueur* player, map<int, match> matches, vector<Question> questions){
+    random_shuffle(questions.begin(), questions.end());
+    int userAnswerIndex = Quizz(questions);
+    int answer = 0;
+
+    // Traiter la réponse en fonction du bouton cliqué
+    if (userAnswerIndex != -1) {
+        if (userAnswerIndex == questions[0].correctOptionIndex) {
+            //Shaq1->show();
+            Info1->setText(QString("Bonne réponse\n%1 %2 marque 3 points")
+                            .arg(player->getPrenom().c_str())
+                            .arg(player->getNom().c_str()));
+            //thread(hideAfterDelay, Shaq1).detach();
+            answer = 1;
+        } else {
+            //Shaq2->show();
+            Info1->setText(QString("Mauvaise réponse"));
+            //thread(hideAfterDelay, Shaq2).detach();
+        }
+    }
+    return answer;
 }
