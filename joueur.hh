@@ -26,6 +26,8 @@ protected:
     int _DEF; // Defense
     int _VIT; // Vitesse
 
+    
+
 public:
 
     joueur()
