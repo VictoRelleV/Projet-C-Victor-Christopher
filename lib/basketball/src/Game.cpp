@@ -83,6 +83,7 @@ int Game::run() {
 
     isRunning = false;
 
+    std::cout << "Score: " << score << std::endl;
     return score;
 }
 

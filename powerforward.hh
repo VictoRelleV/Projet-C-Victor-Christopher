@@ -26,38 +26,66 @@ public:
     {
     }
 
-    void atq2atq(joueur* adversaire, QLabel* Info, vector<Question> questions, map<int, match*> matches) override
+    void atq(joueur* adversaire, QLabel* Info, vector<Question> questions, map<int, match*> matches) override
     {
-        if(this->getATQ() > adversaire->getATQ()) {
-            matches[3]->setScore1(matches[3]->getScore1() + this->getATQ()-adversaire->getATQ());
+        int bonus = 0;
+        if(adversaire->getPosition()=="Small Forward"){
+            bonus = 2;
+        }
+        if(this->getATQ()+bonus > adversaire->getDEF()) {
+            matches[3]->setScore1(matches[3]->getScore1() + this->getATQ()-adversaire->getDEF());
             Info->setText(QString("%1 %2 marque %3 points")
                 .arg(this->getPrenom().c_str())
                 .arg(this->getNom().c_str())
-                .arg(this->getATQ()-adversaire->getATQ()));
-        } else if (this->getATQ() < adversaire->getATQ()) {
-            matches[3]->setScore2(matches[3]->getScore2() + adversaire->getATQ()-this->getATQ());
+                .arg(this->getATQ()-adversaire->getDEF()));
+        } else if (this->getATQ()+bonus < adversaire->getDEF()) {
+            matches[3]->setScore2(matches[3]->getScore2() + adversaire->getDEF()-this->getATQ());
             Info->setText(QString("%1 %2 marque %3 points")
                 .arg(adversaire->getPrenom().c_str())
                 .arg(adversaire->getNom().c_str())
-                .arg(adversaire->getATQ()-this->getATQ()));
-        } else {
-            askQuestion(Info, this, matches, questions);
+                .arg(adversaire->getDEF()-this->getATQ()));
         }
     }
 
-    void def2atq(joueur* adversaire, QLabel* Info, vector<Question> questions, map<int, match*> matches) override
+    void def(joueur* adversaire, QLabel* Info, vector<Question> questions, map<int, match*> matches) override
     {
-        if(this->getDEF() > adversaire->getATQ()) {
-            matches[3]->setScore2(matches[3]->getScore2() - this->getDEF()+adversaire->getATQ());
-            Info->setText(QString("%1 perd %2 points")
-                .arg(matches[3]->getEquipe2().c_str())
+        int bonus = 0;
+        if(adversaire->getPosition()=="Small Forward"){
+            bonus = 2;
+        }
+        if(this->getDEF()+bonus > adversaire->getATQ()) {
+            matches[3]->setScore1(matches[3]->getScore1() + this->getDEF()-adversaire->getATQ());
+            Info->setText(QString("%1 %2 marque %3 points")
+                .arg(this->getPrenom().c_str())
+                .arg(this->getNom().c_str())
                 .arg(this->getDEF()-adversaire->getATQ()));
-        } else if (this->getDEF() < adversaire->getATQ()) {
+        } else if (this->getDEF()+bonus < adversaire->getATQ()) {
             matches[3]->setScore2(matches[3]->getScore2() + adversaire->getATQ()-this->getDEF());
             Info->setText(QString("%1 %2 marque %3 points")
                 .arg(adversaire->getPrenom().c_str())
                 .arg(adversaire->getNom().c_str())
                 .arg(adversaire->getATQ()-this->getDEF()));
+        }
+    }
+
+    void vit(joueur* adversaire, QLabel* Info, vector<Question> questions, map<int, match*> matches) override
+    {
+        int bonus = 0;
+        if(adversaire->getPosition()=="Small Forward"){
+            bonus = 2;
+        }
+        if(this->getVIT()+bonus > adversaire->getVIT()) {
+            matches[3]->setScore1(matches[3]->getScore1() + this->getVIT()-adversaire->getVIT());
+            Info->setText(QString("%1 %2 marque %3 points")
+                .arg(this->getPrenom().c_str())
+                .arg(this->getNom().c_str())
+                .arg(this->getVIT()-adversaire->getVIT()));
+        } else if (this->getVIT()+bonus < adversaire->getVIT()) {
+            matches[3]->setScore2(matches[3]->getScore2() + adversaire->getVIT()-this->getVIT());
+            Info->setText(QString("%1 %2 marque %3 points")
+                .arg(adversaire->getPrenom().c_str())
+                .arg(adversaire->getNom().c_str())
+                .arg(adversaire->getVIT()-this->getVIT()));
         }
     }
 };

@@ -106,28 +106,3 @@ joueur* choisirJoueurAuHasard(map<int, joueur*>& equipe) {
     // Récupérer le joueur à la position aléatoire
     return it->second;
 }
-
-int Action(joueur* joueur1, QLabel* Info){
-    // Utilise l'horloge pour initialiser le générateur de nombres aléatoires
-    std::random_device rd;
-    std::mt19937 gen(rd());
-
-    // Génère un nombre aléatoire entre 1 et 100
-    std::uniform_int_distribution<> distribution(1, 3);
-    int randomValue = distribution(gen);
-
-    if(randomValue == 1){
-        Info->setText(QString("%1 %2 utilise son ATQ")
-            .arg(joueur1->getPrenom().c_str())
-            .arg(joueur1->getNom().c_str()));
-    } else if(randomValue == 2){
-        Info->setText(QString("%1 %2 utilise sa DEF")
-            .arg(joueur1->getPrenom().c_str())
-            .arg(joueur1->getNom().c_str())); 
-    } else if(randomValue == 3){
-        Info->setText(QString("%1 %2 utilise sa VIT")
-            .arg(joueur1->getPrenom().c_str())
-            .arg(joueur1->getNom().c_str()));
-    }
-    return randomValue;
-}

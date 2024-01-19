@@ -32,7 +32,7 @@ int start = 0;
 int timeouts = 0;
 int poste = 0;
 int action1 = 0;
-int action2 = 0;
+int score = 0; 
 joueur* mvp;
 joueur* joueurChoisi;
 string reponse;
@@ -70,8 +70,9 @@ int main(int argc, char *argv[])
     // Set background image using a style sheet
     window.setStyleSheet("background-image: url('/home/vivi_z/C++/Projet/Image/fond.jpg');");
 
-    //Game game(20);
-    //game.run();
+    Game game(20);
+    score = game.run();
+    cout << "Score: " << score << endl;
 
     QLabel *Court = new QLabel(&window);
     QPixmap pixmap_court("/home/vivi_z/C++/Projet/Image/sunscourt.png");
@@ -154,9 +155,9 @@ int main(int argc, char *argv[])
             start = 1;
             Info1->setText(QString("Match commence"));
             joueurChoisi = choisirJoueurAuHasard(team2);
-            if (joueurChoisi) {
-                action2 = Action(joueurChoisi, Info2);
-            }
+            Info2->setText(QString("%1 %2 est choisi")
+                            .arg(joueurChoisi->getPrenom().c_str())
+                            .arg(joueurChoisi->getNom().c_str()));
         }
     });
 
@@ -167,45 +168,26 @@ int main(int argc, char *argv[])
         start = endGame(Info1, team1, team2, matches, horloge, start, mvp);
         if(start == 1 && action1 != 0){
             
-            if(action2==1){
-                if(action1==1){
-                    team1[poste]->atq2atq(joueurChoisi, Info1, questions, matches);
-                    if(team1[poste]->getATQ() == joueurChoisi->getATQ()){
-                        askQuestion(Info1, team1[poste], matches, questions);
-                    }
-                } else if (action1==2) {
-                    team1[poste]->def2atq(joueurChoisi, Info1, questions, matches);
-                    if(team1[poste]->getDEF() == joueurChoisi->getATQ()){
-                        askQuestion(Info1, team1[poste], matches, questions);
-                    }
-                }
+            if(horloge==12 || horloge==24 || horloge==36 || horloge==48){
+                Game game(20);
+                score = game.run();
+                matches[3]->setScore1(matches[3]->getScore1() + score);
+                Info1->setText(QString("Score: %1").arg(score));
             }
 
-            else if(action2==2){
-                if(action1==1){
-                    if(team1[poste]->getATQ() > joueurChoisi->getDEF()){
-                        matches[3]->setScore1(matches[3]->getScore1() + team1[poste]->getATQ()-joueurChoisi->getDEF());
-                        Info1->setText(QString("%1 %2 marque %3 points")
-                                        .arg(team1[poste]->getPrenom().c_str())
-                                        .arg(team1[poste]->getNom().c_str())
-                                        .arg(team1[poste]->getATQ()-joueurChoisi->getDEF()));
-                    } else if(team1[poste]->getATQ() < joueurChoisi->getDEF()){
-                        matches[3]->setScore2(matches[3]->getScore2() + joueurChoisi->getDEF()-team1[poste]->getATQ());
-                        Info1->setText(QString("%1 %2 marque %3 points")
-                                        .arg(joueurChoisi->getPrenom().c_str())
-                                        .arg(joueurChoisi->getNom().c_str())
-                                        .arg(joueurChoisi->getDEF()-team1[poste]->getATQ()));
-                    } else {
-                        askQuestion(Info1, team1[poste], matches, questions);
-                    }
-                }
+            if(action1==1){
+                team1[poste]->atq(joueurChoisi, Info1, questions, matches);
+            } else if (action1==2) {
+                team1[poste]->def(joueurChoisi, Info1, questions, matches);
+            } else if (action1==3) {
+                team1[poste]->vit(joueurChoisi, Info1, questions, matches);
             }
             
             joueurChoisi = choisirJoueurAuHasard(team2);
-            if (joueurChoisi) {
-                action2 = Action(joueurChoisi, Info2);
-            }
-            
+            Info2->setText(QString("%1 %2 est choisi")
+                .arg(joueurChoisi->getPrenom().c_str())
+                .arg(joueurChoisi->getNom().c_str()));
+
             action1 = 0;
             horloge++;
             updatePlayerImageLabelAll(PointGuard1, ShootingGuard1, SmallForward1, PowardForward1, Center1, 
