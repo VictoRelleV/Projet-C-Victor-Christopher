@@ -105,31 +105,9 @@ void updatePlayerImageLabelAll(QLabel* PointGuard1, QLabel* ShootingGuard1, QLab
     updatePlayerImageLabel(Center2, team2[5], 1190, 160, 226);
 }
 
-
-// Fonction pour mettre à jour les équipes en fonction de l'OVR des joueurs
-void updateTeams(map<int, joueur*>& team1, map<int, joueur*>& team2) {
-    // Transfert des paires clé-valeur dans un vector
-    vector<pair<int, joueur*>> joueurVector1(team1.begin(), team1.end());
-    vector<pair<int, joueur*>> joueurVector2(team2.begin(), team2.end());
-    
-    // Tri du vector en utilisant la fonction de comparaison compareOvr
-    //sort(joueurVector1.begin(), joueurVector1.end(), compareOvr);
-    //sort(joueurVector2.begin(), joueurVector2.end(), compareOvr);
-
-    // Mise à jour de la map à partir du vector trié
-    team1.clear(); // Effacer la map d'origine
-    team2.clear();
-
-    for (int i = 0; i < joueurVector1.size(); ++i) {
-        team1[i + 1] = joueurVector1[i].second; // Ajouter les joueurs triés à la map
-    }
-    for(int i = 0; i < joueurVector2.size(); ++i) {
-        team2[i + 1] = joueurVector2[i].second;
-    }
-}
-
 int endGame(QLabel* Info, map<int, joueur*> team1, map<int, joueur*> team2, map<int, match*> matches, int horloge, int start, joueur* mvp){
-    if(horloge>=48){
+    //if(horloge>=48){
+    if(horloge>=12){
         if(matches[3]->getScore1() > matches[3]->getScore2()){
             for (int i = 1; i <= 5; ++i) {
                 cout << team1[i]->getPrenom() << " " << team1[i]->getNom() << " a marqué " << endl;
@@ -229,6 +207,7 @@ void askQuestion(QLabel* Info1, joueur* player, map<int, match*> matches, vector
                             .arg(player->getNom().c_str()));
             //thread(hideAfterDelay, Shaq1).detach();
             matches[3]->setScore1(matches[3]->getScore1() + 3);
+            player->setATQ(player->getATQ() - 3);
 
         } else {
             //Shaq2->show();
@@ -237,3 +216,4 @@ void askQuestion(QLabel* Info1, joueur* player, map<int, match*> matches, vector
         }
     }
 }
+

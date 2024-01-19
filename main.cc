@@ -70,10 +70,6 @@ int main(int argc, char *argv[])
     // Set background image using a style sheet
     window.setStyleSheet("background-image: url('/home/vivi_z/C++/Projet/Image/fond.jpg');");
 
-    Game game(20);
-    score = game.run();
-    cout << "Score: " << score << endl;
-
     QLabel *Court = new QLabel(&window);
     QPixmap pixmap_court("/home/vivi_z/C++/Projet/Image/sunscourt.png");
     pixmap_court = pixmap_court.scaled(1460, 1460, Qt::KeepAspectRatio);

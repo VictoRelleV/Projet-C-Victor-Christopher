@@ -75,13 +75,22 @@ public:
         return _DEF;
     }
 
+    void setDEF(int DEF) {
+        _DEF = DEF;
+    }
+
     int getVIT() const {
         return _VIT;
     }
 
-    void atq100()//test
-    {
-        _ATQ += 100;
+    void setVIT(int VIT) {
+        _VIT = VIT;
+    }
+
+    void addSTAT(int STAT) {
+        _ATQ += STAT;
+        _DEF += STAT;
+        _VIT += STAT;
     }
 
     virtual void atq(joueur* adversaire, QLabel* Info, vector<Question> questions, map<int, match*> matches)

@@ -25,14 +25,16 @@ vector<tuple<string, string, string, string, int, int , int>> playerDetails = {
     {"Irving", "Kyrie", "Point Guard", "/home/vivi_z/C++/Projet/Image/kyrie-irving.png", 97, 85, 93},
     {"Thompson", "Klay", "Shooting Guard", "/home/vivi_z/C++/Projet/Image/klay-thompson.png", 92, 89, 78},
     {"Curry", "Stephen", "Point Guard", "/home/vivi_z/C++/Projet/Image/stephen-curry.png", 99, 99, 99},
-    {"Iverson", "Allen", "Point Guard", "/home/vivi_z/C++/Projet/Image/allen-iverson.png", 96, 93, 98}
+    {"Iverson", "Allen", "Point Guard", "/home/vivi_z/C++/Projet/Image/allen-iverson.png", 96, 93, 98},
+    {"Rose", "Derrick", "Point Guard", "/home/vivi_z/C++/Projet/Image/derrick_rose.png", 99, 96, 98}
     };
 
 map<int, joueur*> createPlayers()
 {
     map<int, joueur*> players;
+    random_shuffle(playerDetails.begin(), playerDetails.end());
 
-    for (int i = 1; i <= playerDetails.size(); ++i)
+    for (int i = 1; i <= 10; ++i)
     {
         const auto& [nom, prenom, position, imagePath, ATQ, DEF, VIT] = playerDetails[i - 1];
         std::string positionValue = std::get<2>(playerDetails[i - 1]);
@@ -61,7 +63,7 @@ pair<map<int, joueur*>, map<int, joueur*>> createTeams(map<int, joueur*> players
     int nextkey1 = 1;
     int nextkey2 = 1;
 
-    for(int i = 1; i <= players.size(); ++i) {
+    for(int i = 1; i <= 10; ++i) {
 
         // Utilise l'horloge pour initialiser le générateur de nombres aléatoires
         std::random_device rd;

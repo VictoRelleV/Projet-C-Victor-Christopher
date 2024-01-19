@@ -26,7 +26,6 @@ void updatePlayerTextLabel(QLabel* label, joueur* player, int posX, int posY);
 void updatePlayerTextLabelAll(QLabel* PointGuard1Text, QLabel* ShootingGuard1Text, QLabel* SmallForwardText, QLabel* PowardForward1Text, QLabel* Center1Text,
                                 map<int, joueur*> team1);   
 
-void updateTeams(map<int, joueur*>& team1, map<int, joueur*>& team2);
 int endGame(QLabel* Info, map<int, joueur*> team1, map<int, joueur*> team2, map<int, match*> matches, int horloge, int start, joueur* mvp);
 void hideAfterDelay(QLabel *label);
 int Quizz(vector<Question> questions);
