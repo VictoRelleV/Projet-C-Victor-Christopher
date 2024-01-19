@@ -65,13 +65,13 @@ int main(int argc, char *argv[])
 
     QWidget window;
     window.setWindowTitle("Image Display Example");
-    window.setFixedSize(1500, 1000);
+    window.setFixedSize(1500, 980);
 
     // Set background image using a style sheet
-    window.setStyleSheet("background-image: url('/home/vivi_z/C++/Projet/Image/fond.jpg');");
+    window.setStyleSheet("background-image: url('./Image/fond.jpg');");
 
     QLabel *Court = new QLabel(&window);
-    QPixmap pixmap_court("/home/vivi_z/C++/Projet/Image/sunscourt.png");
+    QPixmap pixmap_court("./Image/sunscourt.png");
     pixmap_court = pixmap_court.scaled(1460, 1460, Qt::KeepAspectRatio);
     Court->setPixmap(pixmap_court);
     Court->move(20, 20);
@@ -145,7 +145,7 @@ int main(int argc, char *argv[])
 
     QPushButton *Start = new QPushButton("Start", &window);
     Start->setStyleSheet("border: 2px solid black;"); // You can adjust the border size and color
-    Start->move(10, 700);
+    Start->move(230, 835);
     QObject::connect(Start, &QPushButton::clicked, [&]() {
         if (start == 0) {
             start = 1;
@@ -159,7 +159,7 @@ int main(int argc, char *argv[])
 
     QPushButton *Play = new QPushButton("Play", &window);
     Play->setStyleSheet("border: 2px solid black;"); // You can adjust the border size and color
-    Play->move(10, 760);
+    Play->move(230, 895);
     QObject::connect(Play, &QPushButton::clicked, [&]() {
         start = endGame(Info1, team1, team2, matches, horloge, start, mvp);
         if(start == 1 && action1 != 0){
@@ -186,6 +186,7 @@ int main(int argc, char *argv[])
 
             action1 = 0;
             horloge++;
+            recreateLabels(PointGuard1, ShootingGuard1, SmallForward1, PowardForward1, Center1, team1);
             updatePlayerImageLabelAll(PointGuard1, ShootingGuard1, SmallForward1, PowardForward1, Center1, 
                                     PointGuard2, ShootingGuard2, SmallForward2, PowardForward2, Center2, 
                                     team1, team2);
@@ -196,7 +197,7 @@ int main(int argc, char *argv[])
 
     QPushButton *Reset = new QPushButton("Reset", &window);
     Reset->setStyleSheet("border: 2px solid black;"); // You can adjust the border size and color
-    Reset->move(10, 730);
+    Reset->move(230, 865);
     QObject::connect(Reset, &QPushButton::clicked, [&]() {
         horloge = 0;
         start = 0;
@@ -237,6 +238,22 @@ int main(int argc, char *argv[])
     Logo->setPixmap(pixmap_logo);
     Logo->move(609, 150);
     Logo->show();
+
+    QLabel *Coach1 = new QLabel(&window);
+    QPixmap pixmap_coach1("/home/vivi_z/C++/Projet/Image/steve_kerr.jpg");
+    pixmap_coach1 = pixmap_coach1.scaled(200, 200, Qt::KeepAspectRatio);
+    Coach1->setStyleSheet("border: 2px solid black;");
+    Coach1->setPixmap(pixmap_coach1);
+    Coach1->move(20, 757);
+    Coach1->show();
+
+    QLabel *Coach2 = new QLabel(&window);
+    QPixmap pixmap_coach2("/home/vivi_z/C++/Projet/Image/gregg_popovich.jpg");
+    pixmap_coach2 = pixmap_coach2.scaled(200, 200, Qt::KeepAspectRatio);
+    Coach2->setStyleSheet("border: 2px solid black;");
+    Coach2->setPixmap(pixmap_coach2);
+    Coach2->move(1276, 757);
+    Coach2->show();
 
     window.show();
 

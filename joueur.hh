@@ -26,7 +26,7 @@ protected:
     int _DEF; // Defense
     int _VIT; // Vitesse
 
-    
+    int _points = 0; // Points
 
 public:
 
@@ -95,6 +95,14 @@ public:
         _VIT += STAT;
     }
 
+    int getPoints() const {
+        return _points;
+    }
+
+    void setPoints(int points) {
+        _points = points;
+    }
+
     virtual void atq(joueur* adversaire, QLabel* Info, vector<Question> questions, map<int, match*> matches)
     {
         if(this->getATQ() > adversaire->getDEF()) {
@@ -150,5 +158,6 @@ public:
 map<int, joueur*> createPlayers();
 pair<map<int, joueur*>, map<int, joueur*>> createTeams(map<int, joueur*> players);
 joueur* choisirJoueurAuHasard(map<int, joueur*>& equipe);
+joueur* getMVP(map<int, joueur*> players);
 
 #endif // JOUEUR_HH

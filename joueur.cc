@@ -116,3 +116,14 @@ joueur* choisirJoueurAuHasard(map<int, joueur*>& equipe) {
     // Récupérer le joueur à la position aléatoire
     return it->second;
 }
+
+// Fonction qui retourne le joueur avec le plus de points marqués
+joueur* getMVP(map<int, joueur*> players){
+    joueur* mvp = players[1];
+    for (int i = 1; i <= players.size(); ++i) {
+        if(players[i]->getPoints() > mvp->getPoints()){
+            mvp = players[i];
+        }
+    }
+    return mvp;
+}

@@ -63,11 +63,27 @@ void updatePlayerImageLabel(QLabel* label, joueur* player, int posX, int posY, i
 
 // Fonction pour mettre à jour le texte d'un QLabel avec les données d'un joueur
 void updatePlayerTextLabel(QLabel* label, joueur* player, int posX, int posY) {
+    QString positionLabel;
+    if (player->getPosition() == "Point Guard") {
+        positionLabel = "[PG]";
+    } else if (player->getPosition() == "Shooting Guard") {
+        positionLabel = "[SG]";
+    } else if (player->getPosition() == "Small Forward") {
+        positionLabel = "[SF]";
+    } else if (player->getPosition() == "Power Forward") {
+        positionLabel = "[PF]";
+    } else if (player->getPosition() == "Center") {
+        positionLabel = "[C]";
+    } else {
+        positionLabel = "[N/A]";  // Une valeur par défaut si la position n'est pas reconnue
+    }
+
     label->setStyleSheet("border: 2px solid black;"); // You can adjust the border size and color
     label->setFixedSize(180, 40);
-    label->setText(QString("%1 %2\nATQ: %3 DEF: %4 VIT: %5")
+    label->setText(QString("%1 %2 %3\nATQ: %4 DEF: %5 VIT: %6")
                             .arg(player->getPrenom().c_str())
                             .arg(player->getNom().c_str())
+                            .arg(positionLabel)
                             .arg(player->getATQ())
                             .arg(player->getDEF())
                             .arg(player->getVIT()));
@@ -106,28 +122,27 @@ void updatePlayerImageLabelAll(QLabel* PointGuard1, QLabel* ShootingGuard1, QLab
 }
 
 int endGame(QLabel* Info, map<int, joueur*> team1, map<int, joueur*> team2, map<int, match*> matches, int horloge, int start, joueur* mvp){
-    //if(horloge>=48){
-    if(horloge>=12){
-        if(matches[3]->getScore1() > matches[3]->getScore2()){
+    if(start == 1 && horloge >= 12) {
+        if(matches[3]->getScore1() > matches[3]->getScore2()) {
             for (int i = 1; i <= 5; ++i) {
-                cout << team1[i]->getPrenom() << " " << team1[i]->getNom() << " a marqué " << endl;
+                cout << team1[i]->getPrenom() << " " << team1[i]->getNom() << " a marqué " << team1[i]->getPoints() << " points" << endl;
             }
-            //mvp = getMVP(team1);
-            mvp = team1[1];
-            Info->setText(QString("Match terminé\n%1 gagne\n%2 %3 est le MVP du match avec points")
+            mvp = getMVP(team1);
+            Info->setText(QString("Match terminé\n%1 gagne\n%2 %3 est le MVP avec points %4")
                             .arg(matches[3]->getEquipe1().c_str())
                             .arg(mvp->getPrenom().c_str())
-                            .arg(mvp->getNom().c_str()));
-        } else if(matches[3]->getScore1() < matches[3]->getScore2()){
+                            .arg(mvp->getNom().c_str())
+                            .arg(mvp->getPoints()));
+        } else if(matches[3]->getScore1() < matches[3]->getScore2()) {
             for (int i = 1; i <= 5; ++i) {
-                cout << team2[i]->getPrenom() << " " << team2[i]->getNom() << " a marqué " << endl;
+                cout << team2[i]->getPrenom() << " " << team2[i]->getNom() << " a marqué " << team2[i]->getPoints() << " points" << endl;
             }
-            //mvp = getMVP(team2);
-            mvp = team2[1];
-            Info->setText(QString("Match terminé\n%1 gagne\n%2 %3 est le MVP du match avec points")
+            mvp = getMVP(team2);
+            Info->setText(QString("Match terminé\n%1 gagne\n%2 %3 est le MVP avec points %4")
                             .arg(matches[3]->getEquipe2().c_str())
                             .arg(mvp->getPrenom().c_str())
-                            .arg(mvp->getNom().c_str()));
+                            .arg(mvp->getNom().c_str())
+                            .arg(mvp->getPoints()));
         } else {
             Info->setText(QString("Match terminé\nMatch nul"));
         }
@@ -207,7 +222,7 @@ void askQuestion(QLabel* Info1, joueur* player, map<int, match*> matches, vector
                             .arg(player->getNom().c_str()));
             //thread(hideAfterDelay, Shaq1).detach();
             matches[3]->setScore1(matches[3]->getScore1() + 3);
-            player->setATQ(player->getATQ() - 3);
+            player->addSTAT(-3);
 
         } else {
             //Shaq2->show();
