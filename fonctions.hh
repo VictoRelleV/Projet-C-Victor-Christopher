@@ -23,8 +23,11 @@ void updatePlayerImageLabelAll(QLabel* PointGuard1, QLabel* ShootingGuard1, QLab
                                 map<int, joueur*> team1, map<int, joueur*> team2);
 
 void updatePlayerTextLabel(QLabel* label, joueur* player, int posX, int posY);
+void updatePlayerTextLabel2(QLabel* label, joueur* player, int posX, int posY);
+
 void updatePlayerTextLabelAll(QLabel* PointGuard1Text, QLabel* ShootingGuard1Text, QLabel* SmallForwardText, QLabel* PowardForward1Text, QLabel* Center1Text,
-                                map<int, joueur*> team1);   
+                              QLabel* PointGuard2Text, QLabel* ShootingGuard2Text, QLabel* SmallForward2Text, QLabel* PowardForward2Text, QLabel* Center2Text,
+                              map<int, joueur*> team1, map<int, joueur*> team2);
 
 int endGame(QLabel* Info, map<int, joueur*> team1, map<int, joueur*> team2, map<int, match*> matches, int horloge, int start, joueur* mvp);
 void hideAfterDelay(QLabel *label);

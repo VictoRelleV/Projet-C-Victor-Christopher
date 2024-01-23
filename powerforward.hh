@@ -42,13 +42,13 @@ public:
                 .arg(this->getATQ()+bonus-adversaire->getDEF()));
             this->addSTAT(- (this->getATQ()+bonus-adversaire->getDEF()));
         } else if (this->getATQ()+bonus < adversaire->getDEF()) {
-            matches[3]->setScore2(matches[3]->getScore2() + adversaire->getDEF()-this->getATQ()+bonus);
-            adversaire->setPoints(adversaire->getPoints() + adversaire->getDEF()-this->getATQ()+bonus);
+            matches[3]->setScore2(matches[3]->getScore2() + adversaire->getDEF()-(this->getATQ()+bonus));
+            adversaire->setPoints(adversaire->getPoints() + adversaire->getDEF()-(this->getATQ()+bonus));
             Info->setText(QString("%1 %2 marque %3 points")
                 .arg(adversaire->getPrenom().c_str())
                 .arg(adversaire->getNom().c_str())
-                .arg(adversaire->getDEF()-this->getATQ()+bonus));
-            adversaire->addSTAT(- (adversaire->getDEF()-this->getATQ()+bonus));
+                .arg(adversaire->getDEF()-(this->getATQ()+bonus)));
+            adversaire->setDEF(adversaire->getDEF() - (adversaire->getDEF()-(this->getATQ()+bonus)));
         } else {
             askQuestion(Info, this, matches, questions);
         }
@@ -69,13 +69,13 @@ public:
                 .arg(this->getDEF()+bonus-adversaire->getATQ()));
             this->addSTAT(- (this->getDEF()+bonus-adversaire->getATQ()));
         } else if (this->getDEF()+bonus < adversaire->getATQ()) {
-            matches[3]->setScore2(matches[3]->getScore2() + adversaire->getATQ()-this->getDEF()+bonus);
-            adversaire->setPoints(adversaire->getPoints() + adversaire->getATQ()-this->getDEF()+bonus);
+            matches[3]->setScore2(matches[3]->getScore2() + adversaire->getATQ()-(this->getDEF()+bonus));
+            adversaire->setPoints(adversaire->getPoints() + adversaire->getATQ()-(this->getDEF()+bonus));
             Info->setText(QString("%1 %2 marque %3 points")
                 .arg(adversaire->getPrenom().c_str())
                 .arg(adversaire->getNom().c_str())
-                .arg(adversaire->getATQ()-this->getDEF()+bonus));
-            adversaire->addSTAT(- (adversaire->getATQ()-this->getDEF()+bonus));
+                .arg(adversaire->getATQ()-(this->getDEF()+bonus)));
+            adversaire->setATQ(adversaire->getATQ() - (adversaire->getATQ()-(this->getDEF()+bonus)));
         } else {
             askQuestion(Info, this, matches, questions);
         }
@@ -96,13 +96,13 @@ public:
                 .arg(this->getVIT()+bonus-adversaire->getVIT()));
             this->addSTAT(- (this->getVIT()+bonus-adversaire->getVIT()));
         } else if (this->getVIT()+bonus < adversaire->getVIT()) {
-            matches[3]->setScore2(matches[3]->getScore2() + adversaire->getVIT()-this->getVIT()+bonus);
-            adversaire->setPoints(adversaire->getPoints() + adversaire->getVIT()-this->getVIT()+bonus);
+            matches[3]->setScore2(matches[3]->getScore2() + adversaire->getVIT()-(this->getVIT()+bonus));
+            adversaire->setPoints(adversaire->getPoints() + adversaire->getVIT()-(this->getVIT()+bonus));
             Info->setText(QString("%1 %2 marque %3 points")
                 .arg(adversaire->getPrenom().c_str())
                 .arg(adversaire->getNom().c_str())
-                .arg(adversaire->getVIT()-this->getVIT()+bonus));
-            adversaire->addSTAT(- (adversaire->getVIT()-this->getVIT()+bonus));
+                .arg(adversaire->getVIT()-(this->getVIT()+bonus)));
+            adversaire->setVIT(adversaire->getVIT() - (adversaire->getVIT()-(this->getVIT()+bonus)));
         } else {
             askQuestion(Info, this, matches, questions);
         }

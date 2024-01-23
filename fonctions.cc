@@ -92,15 +92,53 @@ void updatePlayerTextLabel(QLabel* label, joueur* player, int posX, int posY) {
     label->show();
 }
 
+// Fonction pour mettre à jour le texte d'un QLabel avec les données d'un joueur
+void updatePlayerTextLabel2(QLabel* label, joueur* player, int posX, int posY) {
+    QString positionLabel;
+    if (player->getPosition() == "Point Guard") {
+        positionLabel = "[PG]";
+    } else if (player->getPosition() == "Shooting Guard") {
+        positionLabel = "[SG]";
+    } else if (player->getPosition() == "Small Forward") {
+        positionLabel = "[SF]";
+    } else if (player->getPosition() == "Power Forward") {
+        positionLabel = "[PF]";
+    } else if (player->getPosition() == "Center") {
+        positionLabel = "[C]";
+    } else {
+        positionLabel = "[N/A]";  // Une valeur par défaut si la position n'est pas reconnue
+    }
+
+    label->setStyleSheet("border: 2px solid black;"); // You can adjust the border size and color
+    label->setFixedSize(180, 40);
+    label->setText(QString("%1 %2 %3\nATQ: %4 DEF: %5 VIT: %6")
+                            .arg(player->getPrenom().c_str())
+                            .arg(player->getNom().c_str())
+                            .arg(positionLabel)
+                            .arg(player->getATQ())
+                            .arg(player->getDEF())
+                            .arg(player->getVIT()));
+    label->setAlignment(Qt::AlignCenter); // Centrer le texte
+    label->move(posX, posY);
+    label->show();
+}
+
 // Fonction pour mettre à jour le texte des QLabel avec les données d'un joueur
 void updatePlayerTextLabelAll(QLabel* PointGuard1Text, QLabel* ShootingGuard1Text, QLabel* SmallForwardText, QLabel* PowardForward1Text, QLabel* Center1Text,
-                                map<int, joueur*> team1) {
+                              QLabel* PointGuard2Text, QLabel* ShootingGuard2Text, QLabel* SmallForward2Text, QLabel* PowardForward2Text, QLabel* Center2Text,
+                              map<int, joueur*> team1, map<int, joueur*> team2) {
 
     updatePlayerTextLabel(PointGuard1Text, team1[1], 540, 535);
     updatePlayerTextLabel(ShootingGuard1Text, team1[2], 340, 636);
     updatePlayerTextLabel(SmallForwardText, team1[3], 340, 346);
     updatePlayerTextLabel(PowardForward1Text, team1[4], 140, 676);
     updatePlayerTextLabel(Center1Text, team1[5], 140, 386);
+
+    updatePlayerTextLabel2(PointGuard2Text, team2[1], 780, 535);
+    updatePlayerTextLabel2(ShootingGuard2Text, team2[2], 980, 636);
+    updatePlayerTextLabel2(SmallForward2Text, team2[3], 980, 346);
+    updatePlayerTextLabel2(PowardForward2Text, team2[4], 1180, 676);
+    updatePlayerTextLabel2(Center2Text, team2[5], 1180, 386);
 }
 
 // Fonction pour mettre à jour les images des joueurs de chaque équipe
@@ -122,7 +160,7 @@ void updatePlayerImageLabelAll(QLabel* PointGuard1, QLabel* ShootingGuard1, QLab
 }
 
 int endGame(QLabel* Info, map<int, joueur*> team1, map<int, joueur*> team2, map<int, match*> matches, int horloge, int start, joueur* mvp){
-    if(start == 1 && horloge >= 12) {
+    if(start == 1 && horloge >= 11) {
         if(matches[3]->getScore1() > matches[3]->getScore2()) {
             for (int i = 1; i <= 5; ++i) {
                 cout << team1[i]->getPrenom() << " " << team1[i]->getNom() << " a marqué " << team1[i]->getPoints() << " points" << endl;

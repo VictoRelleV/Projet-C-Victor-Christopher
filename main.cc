@@ -131,17 +131,32 @@ int main(int argc, char *argv[])
     QLabel *PointGuard2 = new QLabel(&window);
     updatePlayerImageLabel(PointGuard2, team2[1], 790, 309, 226);
 
+    QLabel *PointGuard2Text = new QLabel(&window);
+    updatePlayerTextLabel2(PointGuard2Text, team2[1], 780, 535);
+
     QLabel *ShootingGuard2 = new QLabel(&window);
     updatePlayerImageLabel(ShootingGuard2, team2[2], 990, 410, 226);
+
+    QLabel *ShootingGuard2Text = new QLabel(&window);
+    updatePlayerTextLabel2(ShootingGuard2Text, team2[2], 980, 636);
 
     QLabel *SmallForward2 = new QLabel(&window);
     updatePlayerImageLabel(SmallForward2, team2[3], 990, 120, 226);
 
+    QLabel *SmallForward2Text = new QLabel(&window);
+    updatePlayerTextLabel2(SmallForward2Text, team2[3], 980, 346);
+
     QLabel *PowardForward2 = new QLabel(&window);
     updatePlayerImageLabel(PowardForward2, team2[4], 1190, 450, 226);
 
+    QLabel *PowardForward2Text = new QLabel(&window);
+    updatePlayerTextLabel2(PowardForward2Text, team2[4], 1180, 676);
+
     QLabel *Center2 = new QLabel(&window);
     updatePlayerImageLabel(Center2, team2[5], 1190, 160, 226);
+
+    QLabel *Center2Text = new QLabel(&window);
+    updatePlayerTextLabel2(Center2Text, team2[5], 1180, 386);
 
     QPushButton *Start = new QPushButton("Start", &window);
     Start->setStyleSheet("border: 2px solid black;"); // You can adjust the border size and color
@@ -188,9 +203,11 @@ int main(int argc, char *argv[])
             horloge++;
             recreateLabels(PointGuard1, ShootingGuard1, SmallForward1, PowardForward1, Center1, team1);
             updatePlayerImageLabelAll(PointGuard1, ShootingGuard1, SmallForward1, PowardForward1, Center1, 
-                                    PointGuard2, ShootingGuard2, SmallForward2, PowardForward2, Center2, 
-                                    team1, team2);
-            updatePlayerTextLabelAll(PointGuard1Text, ShootingGuard1Text, SmallForwardText, PowardForward1Text, Center1Text, team1);
+                                      PointGuard2, ShootingGuard2, SmallForward2, PowardForward2, Center2, 
+                                      team1, team2);
+            updatePlayerTextLabelAll(PointGuard1Text, ShootingGuard1Text, SmallForwardText, PowardForward1Text, Center1Text,
+                                     PointGuard2Text, ShootingGuard2Text, SmallForward2Text, PowardForward2Text, Center2Text,
+                                     team1, team2);
             updateMatchLabel(textScore, matches[3], 650, 150, horloge);
         }
     });
@@ -210,9 +227,11 @@ int main(int argc, char *argv[])
         team1 = result.first;
         team2 = result.second;
         updatePlayerImageLabelAll(PointGuard1, ShootingGuard1, SmallForward1, PowardForward1, Center1, 
-                                PointGuard2, ShootingGuard2, SmallForward2, PowardForward2, Center2, 
-                                team1, team2);
-        updatePlayerTextLabelAll(PointGuard1Text, ShootingGuard1Text, SmallForwardText, PowardForward1Text, Center1Text, team1);                                    
+                                  PointGuard2, ShootingGuard2, SmallForward2, PowardForward2, Center2, 
+                                  team1, team2);
+        updatePlayerTextLabelAll(PointGuard1Text, ShootingGuard1Text, SmallForwardText, PowardForward1Text, Center1Text,
+                                 PointGuard2Text, ShootingGuard2Text, SmallForward2Text, PowardForward2Text, Center2Text,
+                                 team1, team2);                                 
         updateMatchLabel(textScore, matches[3], 650, 150, horloge);
         Info1->setText(QString("Click Start to start the match\nClick Reset to reset the match\nClick Play to simulate a match"));
         Info2->setText(QString("Click Start to start the match\nClick Reset to reset the match\nClick Play to simulate a match"));

@@ -34,7 +34,13 @@ vector<tuple<string, string, string, string, int, int , int>> playerDetails = {
     {"Stockton", "John", "Point Guard", "./Image/john_stockton.png", 92, 99, 95},
     {"Brown", "Jaylen", "Shooting Guard", "./Image/jaylen_brown.png", 94, 94, 92},
     {"Russell", "D'Angelo", "Point Guard", "./Image/d_angelo_russell.png", 99, 85, 91},
-    {"Adebayo", "Bam", "Center", "./Image/bam_adebayo.png", 91, 99, 92}
+    {"Adebayo", "Bam", "Center", "./Image/bam_adebayo.png", 91, 99, 92},
+    {"Wembanyama", "Victor", "Center", "./Image/victor_wembanyama.png", 92, 99, 79},
+    {"Duncan", "Tim", "Power Forward", "./Image/tim_duncan.png", 96, 99, 87},
+    {"Parker", "Tony", "Point Guard", "./Image/tony_parker.png", 98, 95, 98},
+    {"Williamson", "Zion", "Power Forward", "./Image/zion_williamson.png", 93, 85, 85},
+    {"Gilgeous-Alexander", "Shai", "Point Guard", "./Image/shai_gilgeous-alexander.png", 96, 88, 86},
+    {"Murray", "Jamal", "Point Guard", "./Image/jamal_murray.png", 98, 93, 94}
     };
 
 map<int, joueur*> createPlayers()
