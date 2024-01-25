@@ -77,26 +77,81 @@ int main(int argc, char *argv[])
     Court->move(20, 20);
     Court->show();
 
+    QLabel *Judges = new QLabel(&window);
+    QPixmap pixmap_judges("./Image/judges.jpg");
+    pixmap_judges = pixmap_judges.scaled(450, 200, Qt::KeepAspectRatio);
+    Judges->setStyleSheet("border: 2px solid black;");
+    Judges->setPixmap(pixmap_judges);
+    Judges->move(525, 757);
+    Judges->show();
+
+    QLabel *Logo = new QLabel(&window);
+    QPixmap pixmap_logo("./Image/logo.png");
+    pixmap_logo = pixmap_logo.scaled(100, 100, Qt::KeepAspectRatio);
+    Logo->setPixmap(pixmap_logo);
+    Logo->move(609, 150);
+    Logo->show();
+
+    QLabel *Coach1 = new QLabel(&window);
+    QPixmap pixmap_coach1("./Image/steve_kerr.jpg");
+    pixmap_coach1 = pixmap_coach1.scaled(200, 200, Qt::KeepAspectRatio);
+    Coach1->setStyleSheet("border: 2px solid black;");
+    Coach1->setPixmap(pixmap_coach1);
+    Coach1->move(20, 757);
+    Coach1->show();
+
+    QLabel *Coach2 = new QLabel(&window);
+    QPixmap pixmap_coach2("./Image/gregg_popovich.jpg");
+    pixmap_coach2 = pixmap_coach2.scaled(200, 200, Qt::KeepAspectRatio);
+    Coach2->setStyleSheet("border: 2px solid black;");
+    Coach2->setPixmap(pixmap_coach2);
+    Coach2->move(1276, 757);
+    Coach2->show();
+
     QLabel *textScore = new QLabel(&window);
     textScore->setStyleSheet("border: 2px solid black;"); // You can adjust the border size and color
     textScore->setFixedSize(200, 100);
     updateMatchLabel(textScore, matches[3], 650, 150, horloge);
 
+    QLabel *textInfo1 = new QLabel(&window);
+    textInfo1->setStyleSheet("border: 2px solid black;"); // You can adjust the border size and color
+    textInfo1->setText(QString("Lakers"));
+    textInfo1->setFixedSize(265, 20);
+    textInfo1->move(240, 790);
+    textInfo1->setAlignment(Qt::AlignCenter); // Centrer le texte dans le label
+    textInfo1->show();
+
+    QLabel *textInfo2 = new QLabel(&window);
+    textInfo2->setStyleSheet("border: 2px solid black;"); // You can adjust the border size and color
+    textInfo2->setText(QString("Heat"));
+    textInfo2->setFixedSize(265, 20);
+    textInfo2->move(995, 790);
+    textInfo2->setAlignment(Qt::AlignCenter); // Centrer le texte dans le label
+    textInfo2->show();
+
     QLabel *Info1 = new QLabel(&window);
     Info1->setStyleSheet("border: 2px solid black;"); // You can adjust the border size and color
     Info1->setText(QString("Click Start to start the match\nClick Reset to reset the match\nClick Play to simulate a match"));
-    Info1->setFixedSize(300, 150);
-    Info1->move(430, 800);
+    Info1->setFixedSize(265, 100);
+    Info1->move(240, 820);
     Info1->setAlignment(Qt::AlignCenter); // Centrer le texte dans le label
     Info1->show();
 
     QLabel *Info2 = new QLabel(&window);
     Info2->setStyleSheet("border: 2px solid black;"); // You can adjust the border size and color
     Info2->setText(QString("Click Start to start the match\nClick Reset to reset the match\nClick Play to simulate a match"));
-    Info2->setFixedSize(300, 150);
-    Info2->move(770, 800);
+    Info2->setFixedSize(265, 100);
+    Info2->move(995, 820);
     Info2->setAlignment(Qt::AlignCenter); // Centrer le texte dans le label
     Info2->show();
+
+    QLabel *Info3 = new QLabel(&window);
+    Info3->setStyleSheet("border: 2px solid black;"); // You can adjust the border size and color
+    Info3->setText(QString("Click Start to start the match\nClick Reset to reset the match\nClick Play to simulate a match"));
+    Info3->setFixedSize(390, 104);
+    Info3->move(555, 857);
+    Info3->setAlignment(Qt::AlignCenter); // Centrer le texte dans le label
+    Info3->show();
     
     ClickableLabel *PointGuard1 = new ClickableLabel(QString(team1[1]->getName().c_str()), team1[1]->getATQ(), team1[1]->getDEF(), team1[1]->getVIT(), 1, &window, Info1);
     updatePlayerImageLabel(PointGuard1, team1[1], 550, 309, 226);
@@ -159,12 +214,14 @@ int main(int argc, char *argv[])
     updatePlayerTextLabel2(Center2Text, team2[5], 1180, 386);
 
     QPushButton *Start = new QPushButton("Start", &window);
+    Start->setFixedSize(50, 20);
     Start->setStyleSheet("border: 2px solid black;"); // You can adjust the border size and color
-    Start->move(230, 835);
+    Start->move(665, 727);
     QObject::connect(Start, &QPushButton::clicked, [&]() {
         if (start == 0) {
             start = 1;
-            Info1->setText(QString("Match commence"));
+            Info1->clear();
+            Info3->setText(QString("Match commence"));
             joueurChoisi = choisirJoueurAuHasard(team2);
             Info2->setText(QString("%1 %2 est choisi")
                             .arg(joueurChoisi->getPrenom().c_str())
@@ -173,32 +230,32 @@ int main(int argc, char *argv[])
     });
 
     QPushButton *Play = new QPushButton("Play", &window);
+    Play->setFixedSize(50, 20);
     Play->setStyleSheet("border: 2px solid black;"); // You can adjust the border size and color
-    Play->move(230, 895);
+    Play->move(725, 727);
     QObject::connect(Play, &QPushButton::clicked, [&]() {
-        start = endGame(Info1, team1, team2, matches, horloge, start, mvp);
         if(start == 1 && action1 != 0){
+
+            if(action1==1){
+                team1[poste]->atq(joueurChoisi, Info3, questions, matches);
+            } else if (action1==2) {
+                team1[poste]->def(joueurChoisi, Info3, questions, matches);
+            } else if (action1==3) {
+                team1[poste]->vit(joueurChoisi, Info3, questions, matches);
+            }
             
-            if(horloge==12 || horloge==24 || horloge==36 || horloge==48){
+            if(horloge==11){
                 Game game(20);
                 score = game.run();
                 matches[3]->setScore1(matches[3]->getScore1() + score);
-                Info1->setText(QString("Score: %1").arg(score));
             }
 
-            if(action1==1){
-                team1[poste]->atq(joueurChoisi, Info1, questions, matches);
-            } else if (action1==2) {
-                team1[poste]->def(joueurChoisi, Info1, questions, matches);
-            } else if (action1==3) {
-                team1[poste]->vit(joueurChoisi, Info1, questions, matches);
-            }
-            
             joueurChoisi = choisirJoueurAuHasard(team2);
             Info2->setText(QString("%1 %2 est choisi")
                 .arg(joueurChoisi->getPrenom().c_str())
                 .arg(joueurChoisi->getNom().c_str()));
 
+            Info1->clear();
             action1 = 0;
             horloge++;
             recreateLabels(PointGuard1, ShootingGuard1, SmallForward1, PowardForward1, Center1, team1);
@@ -210,11 +267,13 @@ int main(int argc, char *argv[])
                                      team1, team2);
             updateMatchLabel(textScore, matches[3], 650, 150, horloge);
         }
+        start = endGame(Info3, team1, team2, matches, horloge, start, mvp);
     });
 
     QPushButton *Reset = new QPushButton("Reset", &window);
+    Reset->setFixedSize(50, 20);
     Reset->setStyleSheet("border: 2px solid black;"); // You can adjust the border size and color
-    Reset->move(230, 865);
+    Reset->move(785, 727);
     QObject::connect(Reset, &QPushButton::clicked, [&]() {
         horloge = 0;
         start = 0;
@@ -226,6 +285,7 @@ int main(int argc, char *argv[])
         result = createTeams(players);
         team1 = result.first;
         team2 = result.second;
+        recreateLabels(PointGuard1, ShootingGuard1, SmallForward1, PowardForward1, Center1, team1);
         updatePlayerImageLabelAll(PointGuard1, ShootingGuard1, SmallForward1, PowardForward1, Center1, 
                                   PointGuard2, ShootingGuard2, SmallForward2, PowardForward2, Center2, 
                                   team1, team2);
@@ -235,44 +295,8 @@ int main(int argc, char *argv[])
         updateMatchLabel(textScore, matches[3], 650, 150, horloge);
         Info1->setText(QString("Click Start to start the match\nClick Reset to reset the match\nClick Play to simulate a match"));
         Info2->setText(QString("Click Start to start the match\nClick Reset to reset the match\nClick Play to simulate a match"));
+        Info3->setText(QString("Click Start to start the match\nClick Reset to reset the match\nClick Play to simulate a match"));
     });
-
-    QLabel *Shaq1 = new QLabel(&window);
-    QPixmap pixmap_shaq1("/home/vivi_z/C++/Projet/Image/Shaq1.jpeg");
-    pixmap_shaq1 = pixmap_shaq1.scaled(100, 100, Qt::KeepAspectRatio);
-    Shaq1->setPixmap(pixmap_shaq1);
-    Shaq1->move(450, 600);
-    Shaq1->hide();
-
-    QLabel *Shaq2 = new QLabel(&window);
-    QPixmap pixmap_shaq2("/home/vivi_z/C++/Projet/Image/Shaq2.jpeg");
-    pixmap_shaq2 = pixmap_shaq2.scaled(100, 100, Qt::KeepAspectRatio);
-    Shaq2->setPixmap(pixmap_shaq2);
-    Shaq2->move(450, 600);
-    Shaq2->hide();
-
-    QLabel *Logo = new QLabel(&window);
-    QPixmap pixmap_logo("/home/vivi_z/C++/Projet/Image/logo.png");
-    pixmap_logo = pixmap_logo.scaled(100, 100, Qt::KeepAspectRatio);
-    Logo->setPixmap(pixmap_logo);
-    Logo->move(609, 150);
-    Logo->show();
-
-    QLabel *Coach1 = new QLabel(&window);
-    QPixmap pixmap_coach1("/home/vivi_z/C++/Projet/Image/steve_kerr.jpg");
-    pixmap_coach1 = pixmap_coach1.scaled(200, 200, Qt::KeepAspectRatio);
-    Coach1->setStyleSheet("border: 2px solid black;");
-    Coach1->setPixmap(pixmap_coach1);
-    Coach1->move(20, 757);
-    Coach1->show();
-
-    QLabel *Coach2 = new QLabel(&window);
-    QPixmap pixmap_coach2("/home/vivi_z/C++/Projet/Image/gregg_popovich.jpg");
-    pixmap_coach2 = pixmap_coach2.scaled(200, 200, Qt::KeepAspectRatio);
-    Coach2->setStyleSheet("border: 2px solid black;");
-    Coach2->setPixmap(pixmap_coach2);
-    Coach2->move(1276, 757);
-    Coach2->show();
 
     window.show();
 

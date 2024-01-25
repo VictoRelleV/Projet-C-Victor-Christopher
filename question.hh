@@ -14,5 +14,6 @@ struct Question {
 };
 
 vector<Question> createQuestions();
+int Quizz(vector<Question> questions);
 
 #endif

@@ -1,3 +1,6 @@
+#include <QPushButton>
+#include <QMessageBox>
+
 #include <map>
 #include <string>
 #include <vector>
@@ -29,4 +32,29 @@ vector<Question> questions = {
 
 vector<Question> createQuestions() {
     return questions;
+}
+
+int Quizz(vector<Question> questions){
+    QMessageBox msgBox;
+    msgBox.setText(questions[0].questionText.c_str());
+    msgBox.setWindowTitle("Quizz");
+    
+    // Ajouter des boutons personnalisés
+    QPushButton *buttonYes = msgBox.addButton(QString(questions[0].options[0].c_str()), QMessageBox::YesRole);
+    QPushButton *buttonNo = msgBox.addButton(QString(questions[0].options[1].c_str()), QMessageBox::NoRole);
+    QPushButton *buttonMaybe = msgBox.addButton(QString(questions[0].options[2].c_str()), QMessageBox::NoRole);
+    
+    msgBox.exec();
+
+    // Récupérer l'index du bouton cliqué
+    QAbstractButton *clickedButton = msgBox.clickedButton();
+    int userAnswerIndex = -1;
+    if (clickedButton == buttonYes) {
+        userAnswerIndex = 0;
+    } else if (clickedButton == buttonNo) {
+        userAnswerIndex = 1;
+    } else if (clickedButton == buttonMaybe) {
+        userAnswerIndex = 2;
+    }
+    return userAnswerIndex;
 }

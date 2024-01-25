@@ -31,9 +31,6 @@ void updatePlayerTextLabelAll(QLabel* PointGuard1Text, QLabel* ShootingGuard1Tex
 
 int endGame(QLabel* Info, map<int, joueur*> team1, map<int, joueur*> team2, map<int, match*> matches, int horloge, int start, joueur* mvp);
 void hideAfterDelay(QLabel *label);
-int Quizz(vector<Question> questions);
-void RandomUpdateTeams(map<int, joueur*>& team1, map<int, joueur*>& team2);
-void hideAfterDelay2(QWidget *window);
 void askQuestion(QLabel* Info1, joueur* player, map<int, match*> matches, vector<Question> questions);
 
 #endif

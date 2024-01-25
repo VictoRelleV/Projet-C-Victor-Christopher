@@ -160,7 +160,7 @@ void updatePlayerImageLabelAll(QLabel* PointGuard1, QLabel* ShootingGuard1, QLab
 }
 
 int endGame(QLabel* Info, map<int, joueur*> team1, map<int, joueur*> team2, map<int, match*> matches, int horloge, int start, joueur* mvp){
-    if(start == 1 && horloge >= 11) {
+    if(start == 1 && horloge >= 12) {
         if(matches[3]->getScore1() > matches[3]->getScore2()) {
             for (int i = 1; i <= 5; ++i) {
                 cout << team1[i]->getPrenom() << " " << team1[i]->getNom() << " a marqué " << team1[i]->getPoints() << " points" << endl;
@@ -197,56 +197,6 @@ void hideAfterDelay(QLabel *label) {
     label->hide();
 }
 
-int Quizz(vector<Question> questions){
-    QMessageBox msgBox;
-    msgBox.setText(questions[0].questionText.c_str());
-    msgBox.setWindowTitle("Quizz");
-    
-    // Ajouter des boutons personnalisés
-    QPushButton *buttonYes = msgBox.addButton(QString(questions[0].options[0].c_str()), QMessageBox::YesRole);
-    QPushButton *buttonNo = msgBox.addButton(QString(questions[0].options[1].c_str()), QMessageBox::NoRole);
-    QPushButton *buttonMaybe = msgBox.addButton(QString(questions[0].options[2].c_str()), QMessageBox::NoRole);
-    
-    msgBox.exec();
-
-    // Récupérer l'index du bouton cliqué
-    QAbstractButton *clickedButton = msgBox.clickedButton();
-    int userAnswerIndex = -1;
-    if (clickedButton == buttonYes) {
-        userAnswerIndex = 0;
-    } else if (clickedButton == buttonNo) {
-        userAnswerIndex = 1;
-    } else if (clickedButton == buttonMaybe) {
-        userAnswerIndex = 2;
-    }
-    return userAnswerIndex;
-}
-
-void RandomUpdateTeams(map<int, joueur*>& team1, map<int, joueur*>& team2) {
-    // Transfert des paires clé-valeur dans un vector
-    vector<pair<int, joueur*>> joueurVector1(team1.begin(), team1.end());
-    vector<pair<int, joueur*>> joueurVector2(team2.begin(), team2.end());
-    
-    random_shuffle(joueurVector1.begin(), joueurVector1.end());
-    random_shuffle(joueurVector2.begin(), joueurVector2.end());
-
-    // Mise à jour de la map à partir du vector trié
-    team1.clear(); // Effacer la map d'origine
-    team2.clear();
-
-    for (int i = 0; i < joueurVector1.size(); ++i) {
-        team1[i + 1] = joueurVector1[i].second; // Ajouter les joueurs triés à la map
-    }
-    for(int i = 0; i < joueurVector2.size(); ++i) {
-        team2[i + 1] = joueurVector2[i].second;
-    }
-}
-
-void hideAfterDelay2(QWidget *window) {
-    this_thread::sleep_for(chrono::seconds(5));
-    window->close();
-}
-
 void askQuestion(QLabel* Info1, joueur* player, map<int, match*> matches, vector<Question> questions){
     random_shuffle(questions.begin(), questions.end());
     int userAnswerIndex = Quizz(questions);
@@ -254,19 +204,16 @@ void askQuestion(QLabel* Info1, joueur* player, map<int, match*> matches, vector
     // Traiter la réponse en fonction du bouton cliqué
     if (userAnswerIndex != -1) {
         if (userAnswerIndex == questions[0].correctOptionIndex) {
-            //Shaq1->show();
             Info1->setText(QString("Bonne réponse\n%1 %2 marque 3 points")
                             .arg(player->getPrenom().c_str())
                             .arg(player->getNom().c_str()));
-            //thread(hideAfterDelay, Shaq1).detach();
+            player->setPoints(player->getPoints() + 3);
             matches[3]->setScore1(matches[3]->getScore1() + 3);
             player->addSTAT(-3);
 
         } else {
-            //Shaq2->show();
             Info1->setText(QString("Mauvaise réponse"));
-            //thread(hideAfterDelay, Shaq2).detach();
+            player->addSTAT(-10);
         }
     }
 }
-
