@@ -29,13 +29,11 @@ using namespace std;
 
 int horloge = 0;
 int start = 0;
-int timeouts = 0;
 int poste = 0;
 int action1 = 0;
 int score = 0; 
 joueur* mvp;
 joueur* joueurChoisi;
-string reponse;
 
 // Utilise l'horloge pour initialiser le générateur de nombres aléatoires
 std::random_device rd;
@@ -277,7 +275,6 @@ int main(int argc, char *argv[])
     QObject::connect(Reset, &QPushButton::clicked, [&]() {
         horloge = 0;
         start = 0;
-        timeouts = 0;
         action1 = 0;
         matches[3]->setScore1(0);
         matches[3]->setScore2(0);

@@ -163,26 +163,26 @@ int endGame(QLabel* Info, map<int, joueur*> team1, map<int, joueur*> team2, map<
     if(start == 1 && horloge >= 12) {
         if(matches[3]->getScore1() > matches[3]->getScore2()) {
             for (int i = 1; i <= 5; ++i) {
-                cout << team1[i]->getPrenom() << " " << team1[i]->getNom() << " a marqué " << team1[i]->getPoints() << " points" << endl;
+                cout << team1[i]->getPrenom() << " " << team1[i]->getNom() << " scored " << team1[i]->getPoints() << " points" << endl;
             }
             mvp = getMVP(team1);
-            Info->setText(QString("Match terminé\n%1 gagne\n%2 %3 est le MVP avec points %4")
+            Info->setText(QString("%1 wins\n%2 %3 is the MVP with points %4")
                             .arg(matches[3]->getEquipe1().c_str())
                             .arg(mvp->getPrenom().c_str())
                             .arg(mvp->getNom().c_str())
                             .arg(mvp->getPoints()));
         } else if(matches[3]->getScore1() < matches[3]->getScore2()) {
             for (int i = 1; i <= 5; ++i) {
-                cout << team2[i]->getPrenom() << " " << team2[i]->getNom() << " a marqué " << team2[i]->getPoints() << " points" << endl;
+                cout << team2[i]->getPrenom() << " " << team2[i]->getNom() << " scored " << team2[i]->getPoints() << " points" << endl;
             }
             mvp = getMVP(team2);
-            Info->setText(QString("Match terminé\n%1 gagne\n%2 %3 est le MVP avec points %4")
+            Info->setText(QString("%1 wins\n%2 %3 is the MVP with points %4")
                             .arg(matches[3]->getEquipe2().c_str())
                             .arg(mvp->getPrenom().c_str())
                             .arg(mvp->getNom().c_str())
                             .arg(mvp->getPoints()));
         } else {
-            Info->setText(QString("Match terminé\nMatch nul"));
+            Info->setText(QString("Draw"));
         }
     start = 0;
     }
@@ -204,7 +204,7 @@ void askQuestion(QLabel* Info1, joueur* player, map<int, match*> matches, vector
     // Traiter la réponse en fonction du bouton cliqué
     if (userAnswerIndex != -1) {
         if (userAnswerIndex == questions[0].correctOptionIndex) {
-            Info1->setText(QString("Bonne réponse\n%1 %2 marque 3 points")
+            Info1->setText(QString("Good answer\n%1 %2 scores 3 points")
                             .arg(player->getPrenom().c_str())
                             .arg(player->getNom().c_str()));
             player->setPoints(player->getPoints() + 3);
@@ -212,7 +212,7 @@ void askQuestion(QLabel* Info1, joueur* player, map<int, match*> matches, vector
             player->addSTAT(-3);
 
         } else {
-            Info1->setText(QString("Mauvaise réponse"));
+            Info1->setText(QString("Wrong answer"));
             player->addSTAT(-10);
         }
     }

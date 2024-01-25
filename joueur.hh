@@ -11,16 +11,14 @@
 #include "joueur.hh"
 #include "match.hh"
 #include "question.hh"
+#include "person.hh"
 
 using namespace std;
 
-class joueur
+class joueur : public person
 {
 protected:
-    string _nom;
-    string _prenom;
     string _position;
-    string _imagePath; // New attribute for image path
 
     int _ATQ; // Attaque
     int _DEF; // Defense
@@ -35,32 +33,11 @@ public:
     }
 
     joueur(string nom, string prenom, string position, string imagePath, int ATQ, int DEF, int VIT)
-        : _nom(nom), _prenom(prenom), _position(position), _imagePath(imagePath), _ATQ(ATQ), _DEF(DEF), _VIT(VIT)
+        : person(nom, prenom, imagePath), _position(position), _ATQ(ATQ), _DEF(DEF), _VIT(VIT)
     {
     }
 
-    // Getter and setter for the image path
-    const string& getImagePath() const {
-        return _imagePath;
-    }
-
-    void setImagePath(const string& imagePath) {
-        _imagePath = imagePath;
-    }
-
     // Other getter methods
-    const string& getNom() const {
-        return _nom;
-    }
-
-    const string& getPrenom() const {
-        return _prenom;
-    }
-
-    const string getName() const {
-        return _prenom+" "+_nom;
-    }
-
     const string& getPosition() const {
         return _position;
     }
