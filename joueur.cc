@@ -16,31 +16,49 @@ using namespace std;
 
 // List of player details (nom, prenom, position, imagePath)
 vector<tuple<string, string, string, string, int, int , int>> playerDetails = {
-    {"Butler", "Jimmy", "Small Forward", "./Image/jimmy-butler.png", 93, 99, 92},
-    {"Bryant", "Kobe", "Shooting Guard", "./Image/kobe-bryant.png", 99, 97, 85},
-    {"James", "Lebron", "Small Forward", "./Image/lebron-james.png", 97, 97, 96},
-    {"Jordan", "Michael", "Shooting Guard", "./Image/michael-jordan.png", 97, 94, 95},
-    {"O'Neal", "Shaquille", "Center", "./Image/shaquille-o-neal.png", 94, 99, 87},
-    {"Durant", "Kevin", "Small Forward", "./Image/kevin-durant.png", 98, 89, 90},
     {"Irving", "Kyrie", "Point Guard", "./Image/kyrie-irving.png", 97, 85, 93},
-    {"Thompson", "Klay", "Shooting Guard", "./Image/klay-thompson.png", 92, 89, 78},
     {"Curry", "Stephen", "Point Guard", "./Image/stephen-curry.png", 99, 99, 99},
     {"Iverson", "Allen", "Point Guard", "./Image/allen-iverson.png", 96, 93, 98},
     {"Rose", "Derrick", "Point Guard", "./Image/derrick_rose.png", 99, 96, 98},
-    {"Pippen", "Scottie", "Small Forward", "./Image/scottie_pippen.png", 90, 99, 95},
-    {"Gobert", "Rudy", "Center", "./Image/rudy_gobert.png", 88, 99, 81},
     {"Dončić", "Luka", "Point Guard", "./Image/luka_doncic.png", 99, 87, 90},
-    {"Malone", "Karl", "Power Forward", "./Image/karl_malone.png", 94, 99, 95},
     {"Stockton", "John", "Point Guard", "./Image/john_stockton.png", 92, 99, 95},
-    {"Brown", "Jaylen", "Shooting Guard", "./Image/jaylen_brown.png", 94, 94, 92},
     {"Russell", "D'Angelo", "Point Guard", "./Image/d_angelo_russell.png", 99, 85, 91},
-    {"Adebayo", "Bam", "Center", "./Image/bam_adebayo.png", 91, 99, 92},
-    {"Wembanyama", "Victor", "Center", "./Image/victor_wembanyama.png", 92, 99, 79},
-    {"Duncan", "Tim", "Power Forward", "./Image/tim_duncan.png", 96, 99, 87},
     {"Parker", "Tony", "Point Guard", "./Image/tony_parker.png", 98, 95, 98},
-    {"Williamson", "Zion", "Power Forward", "./Image/zion_williamson.png", 93, 85, 85},
     {"Gilgeous-Alexander", "Shai", "Point Guard", "./Image/shai_gilgeous-alexander.png", 96, 88, 86},
-    {"Murray", "Jamal", "Point Guard", "./Image/jamal_murray.png", 98, 93, 94}
+    {"Murray", "Jamal", "Point Guard", "./Image/jamal_murray.png", 98, 93, 94},
+
+    {"Bryant", "Kobe", "Shooting Guard", "./Image/kobe-bryant.png", 99, 97, 85},
+    {"Jordan", "Michael", "Shooting Guard", "./Image/michael-jordan.png", 97, 94, 95},
+    {"Thompson", "Klay", "Shooting Guard", "./Image/klay-thompson.png", 92, 89, 78},
+    {"Brown", "Jaylen", "Shooting Guard", "./Image/jaylen_brown.png", 94, 94, 92},
+    {"Harden", "James", "Shooting Guard", "./Image/james_harden.png", 97, 89, 92},
+    {"Allen", "Ray", "Shooting Guard", "./Image/ray_allen.png", 97, 93, 90},
+    //{"Edwards", "Anthony", "Shooting Guard", "./Image/ray_allen.png", 97, 93, 93},
+    //{"Booker", "Devin", "Shooting Guard", "./Image/ray_allen.png", 99, 89, 93},
+    //{"Mitchell", "Donovan", "Shooting Guard", "./Image/ray_allen.png", 94, 89, 96},
+    //{"Drexler", "Clyde", "Shooting Guard", "./Image/ray_allen.png", 98, 94, 94},
+    
+    {"Butler", "Jimmy", "Small Forward", "./Image/jimmy-butler.png", 93, 99, 92},
+    {"James", "Lebron", "Small Forward", "./Image/lebron-james.png", 97, 97, 96},
+    {"Pippen", "Scottie", "Small Forward", "./Image/scottie_pippen.png", 90, 99, 95},
+    {"Durant", "Kevin", "Small Forward", "./Image/kevin-durant.png", 98, 89, 90},
+    
+    {"Duncan", "Tim", "Power Forward", "./Image/tim_duncan.png", 96, 99, 87},
+    {"Malone", "Karl", "Power Forward", "./Image/karl_malone.png", 94, 99, 95},
+    {"Williamson", "Zion", "Power Forward", "./Image/zion_williamson.png", 93, 85, 85},
+    {"Antetokounmpo", "Giannis", "Power Forward", "./Image/giannis_antetokounmpo.png", 97, 99, 95},
+    {"Nowitzki", "Dirk", "Power Forward", "./Image/dirk_nowitzki.png", 98, 89, 74},
+    {"Bosh", "Chris", "Power Forward", "./Image/chris_bosh.png", 92, 93, 80},
+    {"Holmgren", "Chet", "Power Forward", "./Image/chet_holmgren.png", 91, 93, 77},
+    {"Towns", "Karl-Anthony", "Power Forward", "./Image/karl-anthony_towns.png", 99, 98, 87},
+    {"Garnett", "Kevin", "Power Forward", "./Image/kevin_garnett.png", 93, 99, 90},
+    {"Bird", "Larry", "Power Forward", "./Image/larry_bird.png", 99, 99, 90},
+
+    {"Gobert", "Rudy", "Center", "./Image/rudy_gobert.png", 88, 99, 81},
+    {"O'Neal", "Shaquille", "Center", "./Image/shaquille-o-neal.png", 94, 99, 87},
+    {"Adebayo", "Bam", "Center", "./Image/bam_adebayo.png", 91, 99, 92},
+    {"Wembanyama", "Victor", "Center", "./Image/victor_wembanyama.png", 92, 99, 79}
+    
     };
 
 map<int, joueur*> createPlayers()

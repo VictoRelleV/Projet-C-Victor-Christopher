@@ -40,6 +40,8 @@ void updateMatchLabel(QLabel *label, match* currentMatch, int x, int y, int horl
         quarter = "4th";
         adjustedHorloge -= 36;
     } 
+    label->setStyleSheet("border: 2px solid black;"); // You can adjust the border size and color
+    label->setFixedSize(200, 100);
     label->setText(QString("%1 %2:00\n%3 %4 - %5 %6")
                 .arg(quarter)
                 .arg(adjustedHorloge)

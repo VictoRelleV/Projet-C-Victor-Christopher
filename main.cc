@@ -89,7 +89,8 @@ int main(int argc, char *argv[])
     Logo->show();
 
     QLabel *Coach1 = new QLabel(&window);
-    QPixmap pixmap_coach1("./Image/steve_kerr.jpg");
+    //QPixmap pixmap_coach1("./Image/steve_kerr.jpg");
+    QPixmap pixmap_coach1("./Image/kerr.png");
     pixmap_coach1 = pixmap_coach1.scaled(200, 200, Qt::KeepAspectRatio);
     Coach1->setStyleSheet("border: 2px solid black;");
     Coach1->setPixmap(pixmap_coach1);
@@ -97,7 +98,8 @@ int main(int argc, char *argv[])
     Coach1->show();
 
     QLabel *Coach2 = new QLabel(&window);
-    QPixmap pixmap_coach2("./Image/gregg_popovich.jpg");
+    //QPixmap pixmap_coach2("./Image/gregg_popovich.jpg");
+    QPixmap pixmap_coach2("./Image/popo.png");
     pixmap_coach2 = pixmap_coach2.scaled(200, 200, Qt::KeepAspectRatio);
     Coach2->setStyleSheet("border: 2px solid black;");
     Coach2->setPixmap(pixmap_coach2);
@@ -105,8 +107,6 @@ int main(int argc, char *argv[])
     Coach2->show();
 
     QLabel *textScore = new QLabel(&window);
-    textScore->setStyleSheet("border: 2px solid black;"); // You can adjust the border size and color
-    textScore->setFixedSize(200, 100);
     updateMatchLabel(textScore, matches[3], 650, 150, horloge);
 
     QLabel *textInfo1 = new QLabel(&window);
@@ -241,7 +241,7 @@ int main(int argc, char *argv[])
             }
             
             if(horloge==11){
-                Game game(20);
+                Game game(30);
                 score = game.run();
                 matches[3]->setScore1(matches[3]->getScore1() + score);
             }
