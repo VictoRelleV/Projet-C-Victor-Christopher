@@ -22,12 +22,13 @@ void updatePlayerImageLabelAll(QLabel* PointGuard1, QLabel* ShootingGuard1, QLab
                                 QLabel* PointGuard2, QLabel* ShootingGuard2, QLabel* SmallForward2, QLabel* PowardForward2, QLabel* Center2, 
                                 map<int, joueur*> team1, map<int, joueur*> team2);
 
+QString getPositionLabel(joueur* player);
 void updatePlayerTextLabel(QLabel* label, joueur* player, int posX, int posY);
-void updatePlayerTextLabel2(QLabel* label, joueur* player, int posX, int posY);
+void updatePlayerTextLabel2(QLabel* label, joueur* player, int posX, int posY, int reveal);
 
 void updatePlayerTextLabelAll(QLabel* PointGuard1Text, QLabel* ShootingGuard1Text, QLabel* SmallForwardText, QLabel* PowardForward1Text, QLabel* Center1Text,
                               QLabel* PointGuard2Text, QLabel* ShootingGuard2Text, QLabel* SmallForward2Text, QLabel* PowardForward2Text, QLabel* Center2Text,
-                              map<int, joueur*> team1, map<int, joueur*> team2);
+                              map<int, joueur*> team1, map<int, joueur*> team2, vector<int> indicePick);
 
 int endGame(QLabel* Info, map<int, joueur*> team1, map<int, joueur*> team2, map<int, match*> matches, int horloge, int start, joueur* mvp);
 void hideAfterDelay(QLabel *label);

@@ -14,6 +14,7 @@
 #include <chrono>
 
 #include "match.hh"
+#include "headcoach.hh"
 #include "joueur.hh"
 #include "fonctions.hh"
 #include "question.hh"
@@ -32,15 +33,10 @@ int start = 0;
 int poste = 0;
 int action1 = 0;
 int score = 0; 
+int coachboost = 0;
+vector<int> indicePick(5, 0);
 joueur* mvp;
 joueur* joueurChoisi;
-
-// Utilise l'horloge pour initialiser le générateur de nombres aléatoires
-std::random_device rd;
-std::mt19937 gen(rd());
-// Génère un nombre aléatoire entre 1 et 2
-uniform_int_distribution<> distribution2(1, 2);
-uniform_int_distribution<> distribution100(1, 100);
 
 int main(int argc, char *argv[])
 {
@@ -53,6 +49,8 @@ int main(int argc, char *argv[])
     pair<map<int, joueur*>, map<int, joueur*>> result = createTeams(players);
     map<int, joueur*> team1 = result.first;
     map<int, joueur*> team2 = result.second;
+
+    headcoach* coach = new headcoach("Kerr", "Steve", "Warriors", "./Image/steve_kerr.jpg");
 
     // Create match instance
     map<int, match*> matches = createMatches();
@@ -150,7 +148,7 @@ int main(int argc, char *argv[])
     Info3->move(555, 857);
     Info3->setAlignment(Qt::AlignCenter); // Centrer le texte dans le label
     Info3->show();
-    
+
     ClickableLabel *PointGuard1 = new ClickableLabel(QString(team1[1]->getName().c_str()), team1[1]->getATQ(), team1[1]->getDEF(), team1[1]->getVIT(), 1, &window, Info1);
     updatePlayerImageLabel(PointGuard1, team1[1], 550, 309, 226);
 
@@ -185,43 +183,43 @@ int main(int argc, char *argv[])
     updatePlayerImageLabel(PointGuard2, team2[1], 790, 309, 226);
 
     QLabel *PointGuard2Text = new QLabel(&window);
-    updatePlayerTextLabel2(PointGuard2Text, team2[1], 780, 535);
+    updatePlayerTextLabel2(PointGuard2Text, team2[1], 780, 535, indicePick[0]);
 
     QLabel *ShootingGuard2 = new QLabel(&window);
     updatePlayerImageLabel(ShootingGuard2, team2[2], 990, 410, 226);
 
     QLabel *ShootingGuard2Text = new QLabel(&window);
-    updatePlayerTextLabel2(ShootingGuard2Text, team2[2], 980, 636);
+    updatePlayerTextLabel2(ShootingGuard2Text, team2[2], 980, 636, indicePick[1]);
 
     QLabel *SmallForward2 = new QLabel(&window);
     updatePlayerImageLabel(SmallForward2, team2[3], 990, 120, 226);
 
     QLabel *SmallForward2Text = new QLabel(&window);
-    updatePlayerTextLabel2(SmallForward2Text, team2[3], 980, 346);
+    updatePlayerTextLabel2(SmallForward2Text, team2[3], 980, 346, indicePick[2]);
 
     QLabel *PowardForward2 = new QLabel(&window);
     updatePlayerImageLabel(PowardForward2, team2[4], 1190, 450, 226);
 
     QLabel *PowardForward2Text = new QLabel(&window);
-    updatePlayerTextLabel2(PowardForward2Text, team2[4], 1180, 676);
+    updatePlayerTextLabel2(PowardForward2Text, team2[4], 1180, 676, indicePick[3]);
 
     QLabel *Center2 = new QLabel(&window);
     updatePlayerImageLabel(Center2, team2[5], 1190, 160, 226);
 
     QLabel *Center2Text = new QLabel(&window);
-    updatePlayerTextLabel2(Center2Text, team2[5], 1180, 386);
+    updatePlayerTextLabel2(Center2Text, team2[5], 1180, 386, indicePick[4]);
 
     QPushButton *Start = new QPushButton("Start", &window);
     Start->setFixedSize(50, 20);
     Start->setStyleSheet("border: 2px solid black;"); // You can adjust the border size and color
     Start->move(665, 727);
     QObject::connect(Start, &QPushButton::clicked, [&]() {
-        if (start == 0) {
+        if (start == 0 && horloge == 0) {
             start = 1;
             Info1->clear();
             Info3->setText(QString("Match commence"));
             joueurChoisi = choisirJoueurAuHasard(team2);
-            Info2->setText(QString("%1 %2 est choisi")
+            Info2->setText(QString("%1 %2 is picked")
                             .arg(joueurChoisi->getPrenom().c_str())
                             .arg(joueurChoisi->getNom().c_str()));
         }
@@ -249,7 +247,7 @@ int main(int argc, char *argv[])
             }
 
             joueurChoisi = choisirJoueurAuHasard(team2);
-            Info2->setText(QString("%1 %2 est choisi")
+            Info2->setText(QString("%1 %2 is picked")
                 .arg(joueurChoisi->getPrenom().c_str())
                 .arg(joueurChoisi->getNom().c_str()));
 
@@ -262,7 +260,7 @@ int main(int argc, char *argv[])
                                       team1, team2);
             updatePlayerTextLabelAll(PointGuard1Text, ShootingGuard1Text, SmallForwardText, PowardForward1Text, Center1Text,
                                      PointGuard2Text, ShootingGuard2Text, SmallForward2Text, PowardForward2Text, Center2Text,
-                                     team1, team2);
+                                     team1, team2, indicePick);
             updateMatchLabel(textScore, matches[3], 650, 150, horloge);
         }
         start = endGame(Info3, team1, team2, matches, horloge, start, mvp);
@@ -276,6 +274,8 @@ int main(int argc, char *argv[])
         horloge = 0;
         start = 0;
         action1 = 0;
+        coachboost = 0;
+        indicePick = vector<int>(5, 0);
         matches[3]->setScore1(0);
         matches[3]->setScore2(0);
         players = createPlayers();
@@ -288,11 +288,27 @@ int main(int argc, char *argv[])
                                   team1, team2);
         updatePlayerTextLabelAll(PointGuard1Text, ShootingGuard1Text, SmallForwardText, PowardForward1Text, Center1Text,
                                  PointGuard2Text, ShootingGuard2Text, SmallForward2Text, PowardForward2Text, Center2Text,
-                                 team1, team2);                                 
+                                 team1, team2, indicePick);                                 
         updateMatchLabel(textScore, matches[3], 650, 150, horloge);
         Info1->setText(QString("Click Start to start the match\nClick Reset to reset the match\nClick Play to simulate a match"));
         Info2->setText(QString("Click Start to start the match\nClick Reset to reset the match\nClick Play to simulate a match"));
         Info3->setText(QString("Click Start to start the match\nClick Reset to reset the match\nClick Play to simulate a match"));
+    });
+
+    QPushButton *CoachBoost = new QPushButton("Coach Boost", &window);
+    CoachBoost->setFixedSize(100, 20);
+    CoachBoost->setStyleSheet("border: 2px solid black;"); // You can adjust the border size and color
+    CoachBoost->move(23, 727);
+    QObject::connect(CoachBoost, &QPushButton::clicked, [&]() {
+        if(start==1 && coachboost==0){
+            coachboost = 1;
+            int nbrPick = Draft();
+            indicePick = coach->scoutingReport(horloge, nbrPick, matches, team2, Info3);
+            updateMatchLabel(textScore, matches[3], 650, 150, horloge);
+            updatePlayerTextLabelAll(PointGuard1Text, ShootingGuard1Text, SmallForwardText, PowardForward1Text, Center1Text,
+                            PointGuard2Text, ShootingGuard2Text, SmallForward2Text, PowardForward2Text, Center2Text,
+                            team1, team2, indicePick);  
+        }
     });
 
     window.show();

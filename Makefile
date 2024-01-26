@@ -15,7 +15,7 @@ QT_LIBS = -lQt5Widgets -lQt5Core -lQt5Gui -lsfml-graphics -lsfml-window -lsfml-s
 TARGET = out
 
 # Liste des fichiers source
-SOURCES = main.cc joueur.cc match.cc fonctions.cc question.cc clickablelabel.cc lib/basketball/src/Solid.cpp lib/basketball/src/Net.cpp lib/basketball/src/Ball.cpp lib/basketball/src/Game.cpp
+SOURCES = main.cc joueur.cc match.cc fonctions.cc question.cc clickablelabel.cc headcoach.cc lib/basketball/src/Solid.cpp lib/basketball/src/Net.cpp lib/basketball/src/Ball.cpp lib/basketball/src/Game.cpp
 
 all: $(TARGET)
 
