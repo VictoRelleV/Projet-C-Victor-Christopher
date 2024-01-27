@@ -151,3 +151,8 @@ joueur* getMVP(map<int, joueur*> players){
     }
     return mvp;
 }
+
+std::ostream& operator<<(std::ostream& os, const joueur& joueur) {
+    os << joueur._prenom << " " << joueur._nom << " scored " << joueur._points << " points";
+    return os;
+}

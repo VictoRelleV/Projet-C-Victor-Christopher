@@ -163,20 +163,20 @@ int endGame(QLabel* Info, map<int, joueur*> team1, map<int, joueur*> team2, map<
     if(start == 1 && horloge >= 12) {
         if(matches[3]->getScore1() > matches[3]->getScore2()) {
             for (int i = 1; i <= 5; ++i) {
-                cout << team1[i]->getPrenom() << " " << team1[i]->getNom() << " scored " << team1[i]->getPoints() << " points" << endl;
+                cout << *team1[i] << endl;
             }
             mvp = getMVP(team1);
-            Info->setText(QString("%1 wins\n%2 %3 is the MVP with points %4")
+            Info->setText(QString("%1 wins\n%2 %3 is the MVP with %4 points")
                             .arg(matches[3]->getEquipe1().c_str())
                             .arg(mvp->getPrenom().c_str())
                             .arg(mvp->getNom().c_str())
                             .arg(mvp->getPoints()));
         } else if(matches[3]->getScore1() < matches[3]->getScore2()) {
             for (int i = 1; i <= 5; ++i) {
-                cout << team2[i]->getPrenom() << " " << team2[i]->getNom() << " scored " << team2[i]->getPoints() << " points" << endl;
+                cout << *team2[i] << endl;
             }
             mvp = getMVP(team2);
-            Info->setText(QString("%1 wins\n%2 %3 is the MVP with points %4")
+            Info->setText(QString("%1 wins\n%2 %3 is the MVP with %4 points")
                             .arg(matches[3]->getEquipe2().c_str())
                             .arg(mvp->getPrenom().c_str())
                             .arg(mvp->getNom().c_str())

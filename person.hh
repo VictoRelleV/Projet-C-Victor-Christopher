@@ -44,6 +44,11 @@ public:
     const string getName() const {
         return _prenom+" "+_nom;
     }
+
+    friend std::ostream& operator<<(std::ostream& os, const person& personne) {
+        os << "Nom: " << personne._nom << ", Prenom: " << personne._prenom;
+        return os;
+    }
 };
 
 #endif // PERSON_HH

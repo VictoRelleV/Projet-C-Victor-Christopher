@@ -80,6 +80,15 @@ public:
         _points = points;
     }
 
+    friend std::ostream& operator<<(std::ostream& os, const joueur& joueur);
+
+    joueur operator++(int) {
+        // Logique pour l'incrémentation postfixe
+        joueur temp(*this);
+        ++_points;
+        return temp;
+    }
+
     virtual void atq(joueur* adversaire, QLabel* Info, vector<Question> questions, map<int, match*> matches)
     {
         if(this->getATQ() > adversaire->getDEF()) {
