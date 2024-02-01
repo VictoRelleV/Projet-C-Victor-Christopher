@@ -29,5 +29,5 @@ To build and run the game, you can use the pre-configured bash script:
 ## Run Tests
 To run the tests, you can use the pre-configured bash script:
 ```bash
-./tests.sh
+./test.sh
 ```
