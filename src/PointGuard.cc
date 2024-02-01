@@ -11,7 +11,7 @@ void PointGuard::printInfos() {
 }
 
 
-void PointGuard::atq(Joueur *adversaire, QLabel &Info, vector<Question> questions, map<int, Match *> matches) {
+void PointGuard::atq(Joueur* adversaire, QLabel &Info, vector<Question> questions, map<int, Match *> matches) {
     int bonus = 0;
     if(adversaire->getPosition()=="Center"){
         bonus = 2;
@@ -40,7 +40,7 @@ void PointGuard::atq(Joueur *adversaire, QLabel &Info, vector<Question> question
 }
 
 
-void PointGuard::def(Joueur *adversaire, QLabel &Info, vector<Question> questions, map<int, Match *> matches) {
+void PointGuard::def(Joueur* adversaire, QLabel &Info, vector<Question> questions, map<int, Match *> matches) {
     int bonus = 0;
     if(adversaire->getPosition()=="Center"){
         bonus = 2;
@@ -67,7 +67,7 @@ void PointGuard::def(Joueur *adversaire, QLabel &Info, vector<Question> question
     }
 }
 
-void PointGuard::vit(Joueur *adversaire, QLabel &Info, vector<Question> questions, map<int, Match *> matches) {
+void PointGuard::vit(Joueur* adversaire, QLabel &Info, vector<Question> questions, map<int, Match *> matches) {
     int bonus = 0;
     if(adversaire->getPosition()=="Center"){
         bonus = 2;

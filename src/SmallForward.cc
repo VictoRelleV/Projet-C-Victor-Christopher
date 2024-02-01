@@ -1,6 +1,6 @@
 #include "../include/SmallForward.hh"
 
-void SmallForward::atq(Joueur *adversaire, QLabel &Info, vector<Question> questions, map<int, Match *> matches) {
+void SmallForward::atq(Joueur* adversaire, QLabel &Info, vector<Question> questions, map<int, Match *> matches) {
     int bonus = 0;
     if(adversaire->getPosition()=="Shooting Guard"){
         bonus = 2;
@@ -29,7 +29,7 @@ void SmallForward::atq(Joueur *adversaire, QLabel &Info, vector<Question> questi
 }
 
 
-void SmallForward::def(Joueur *adversaire, QLabel &Info, vector<Question> questions, map<int, Match *> matches) {
+void SmallForward::def(Joueur* adversaire, QLabel &Info, vector<Question> questions, map<int, Match *> matches) {
     int bonus = 0;
     if(adversaire->getPosition()=="Shooting Guard"){
         bonus = 2;
@@ -56,7 +56,7 @@ void SmallForward::def(Joueur *adversaire, QLabel &Info, vector<Question> questi
     }
 }
 
-void SmallForward::vit(Joueur *adversaire, QLabel &Info, vector<Question> questions, map<int, Match *> matches) {
+void SmallForward::vit(Joueur* adversaire, QLabel &Info, vector<Question> questions, map<int, Match *> matches) {
     int bonus = 0;
     if(adversaire->getPosition()=="Shooting Guard"){
         bonus = 2;

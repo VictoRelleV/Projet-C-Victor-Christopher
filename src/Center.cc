@@ -1,6 +1,6 @@
 #include "../include/Center.hh"
 
-void Center::atq(Joueur *adversaire, QLabel &Info, vector<Question> questions, map<int, Match *> matches) {
+void Center::atq(Joueur* adversaire, QLabel &Info, vector<Question> questions, map<int, Match *> matches) {
     int bonus = 0;
     if(adversaire->getPosition()=="Power Forward"){
         bonus = 2;
@@ -28,7 +28,7 @@ void Center::atq(Joueur *adversaire, QLabel &Info, vector<Question> questions, m
     }
 }
 
-void Center::def(Joueur *adversaire, QLabel &Info, vector<Question> questions, map<int, Match *> matches) {
+void Center::def(Joueur* adversaire, QLabel &Info, vector<Question> questions, map<int, Match *> matches) {
     int bonus = 0;
     if(adversaire->getPosition()=="Power Forward"){
         bonus = 2;
@@ -55,7 +55,7 @@ void Center::def(Joueur *adversaire, QLabel &Info, vector<Question> questions, m
     }
 }
 
-void Center::vit(Joueur *adversaire, QLabel &Info, vector<Question> questions, map<int, Match *> matches) {
+void Center::vit(Joueur* adversaire, QLabel &Info, vector<Question> questions, map<int, Match *> matches) {
     int bonus = 0;
     if(adversaire->getPosition()=="Power Forward"){
         bonus = 2;
