@@ -17,18 +17,18 @@
 #include <thread>
 #include <chrono>
 
-#include "match.hh"
-#include "headcoach.hh"
-#include "joueur.hh"
+#include "Match.hh"
+#include "HeadCoach.hh"
+#include "Joueur.hh"
 #include "fonctions.hh"
 #include "question.hh"
-#include "clickablelabel.hh"
-#include "center.hh"
-#include "powerforward.hh"
-#include "smallforward.hh"
-#include "shootingguard.hh"
-#include "pointguard.hh"
-#include "lib/basketball/include/Game.h"
+#include "ClickableLabel.hh"
+#include "Center.hh"
+#include "PowerForward.hh"
+#include "SmallForward.hh"
+#include "ShootingGuard.hh"
+#include "PointGuard.hh"
+#include "../lib/basketball/include/Game.h"
 
 using namespace std;
 
@@ -39,8 +39,8 @@ int action1 = 0;
 int score = 0;
 int coachboost = 0;
 vector<int> indicePick(5, 0);
-joueur* mvp;
-joueur* joueurChoisi;
+Joueur* mvp;
+Joueur* joueurChoisi;
 
 class Jeu {
 private:
@@ -123,18 +123,18 @@ public:
     {}
 
     void lancer() {
-        // Create joueur instance
-        std::map<int, joueur*> players = createPlayers();
+        // Create Joueur instance
+        std::map<int, Joueur*> players = createPlayers();
 
         // Create team
-        pair<map<int, joueur*>, map<int, joueur*>> result = createTeams(players);
-        map<int, joueur*> team1 = result.first;
-        map<int, joueur*> team2 = result.second;
+        pair<map<int, Joueur*>, map<int, Joueur*>> result = createTeams(players);
+        map<int, Joueur*> team1 = result.first;
+        map<int, Joueur*> team2 = result.second;
 
-        headcoach coach("Kerr", "Steve", "Warriors", "./Image/steve_kerr.jpg");
+        HeadCoach coach("Kerr", "Steve", "Warriors", "./Image/steve_kerr.jpg");
 
-        // Create match instance
-        map<int, match*> matches = createMatches();
+        // Create Match instance
+        map<int, Match*> matches = createMatches();
 
         // Create question
         vector<Question> questions = createQuestions();
@@ -192,47 +192,52 @@ public:
         textInfo2.show();
 
         Info1.setStyleSheet("border: 2px solid black;"); // You can adjust the border size and color
-        Info1.setText(QString("Click Start to start the match\nClick Reset to reset the match\nClick Play to simulate a match"));
+        Info1.setText(QString("Click Start to start the Match\nClick Reset to reset the Match\nClick Play to simulate a Match"));
         Info1.setFixedSize(265, 100);
         Info1.move(240, 820);
         Info1.setAlignment(Qt::AlignCenter); // Centrer le texte dans le label
         Info1.show();
 
         Info2.setStyleSheet("border: 2px solid black;"); // You can adjust the border size and color
-        Info2.setText(QString("Click Start to start the match\nClick Reset to reset the match\nClick Play to simulate a match"));
+        Info2.setText(QString("Click Start to start the Match\nClick Reset to reset the Match\nClick Play to simulate a Match"));
         Info2.setFixedSize(265, 100);
         Info2.move(995, 820);
         Info2.setAlignment(Qt::AlignCenter); // Centrer le texte dans le label
         Info2.show();
 
         Info3.setStyleSheet("border: 2px solid black;"); // You can adjust the border size and color
-        Info3.setText(QString("Click Start to start the match\nClick Reset to reset the match\nClick Play to simulate a match"));
+        Info3.setText(QString("Click Start to start the Match\nClick Reset to reset the Match\nClick Play to simulate a Match"));
         Info3.setFixedSize(390, 104);
         Info3.move(555, 857);
         Info3.setAlignment(Qt::AlignCenter); // Centrer le texte dans le label
         Info3.show();
 
-        ClickableLabel PointGuard1(QString(team1[1]->getName().c_str()), team1[1]->getATQ(), team1[1]->getDEF(), team1[1]->getVIT(), 1, window, Info1);
+        ClickableLabel PointGuard1(QString(team1[1]->getName().c_str()), team1[1]->getStatAttaque(),
+                                   team1[1]->getStatDefense(), team1[1]->getStatVitesse(), 1, window, Info1);
         updatePlayerImageLabel(PointGuard1, team1[1], 550, 309, 226);
 
         updatePlayerTextLabel(PointGuard1Text, team1[1], 540, 535);
 
-        ClickableLabel ShootingGuard1(QString(team1[2]->getName().c_str()), team1[2]->getATQ(), team1[2]->getDEF(), team1[2]->getVIT(), 2, window, Info1);
+        ClickableLabel ShootingGuard1(QString(team1[2]->getName().c_str()), team1[2]->getStatAttaque(),
+                                      team1[2]->getStatDefense(), team1[2]->getStatVitesse(), 2, window, Info1);
         updatePlayerImageLabel(ShootingGuard1, team1[2], 350, 410, 226);
 
         updatePlayerTextLabel(ShootingGuard1Text, team1[2], 340, 636);
 
-        ClickableLabel SmallForward1(QString(team1[3]->getName().c_str()), team1[3]->getATQ(), team1[3]->getDEF(), team1[3]->getVIT(), 3, window, Info1);
+        ClickableLabel SmallForward1(QString(team1[3]->getName().c_str()), team1[3]->getStatAttaque(),
+                                     team1[3]->getStatDefense(), team1[3]->getStatVitesse(), 3, window, Info1);
         updatePlayerImageLabel(SmallForward1, team1[3], 350, 120, 226);
 
         updatePlayerTextLabel(SmallForwardText, team1[3], 340, 346);
 
-        ClickableLabel PowardForward1(QString(team1[4]->getName().c_str()), team1[4]->getATQ(), team1[4]->getDEF(), team1[4]->getVIT(), 4, window, Info1);
+        ClickableLabel PowardForward1(QString(team1[4]->getName().c_str()), team1[4]->getStatAttaque(),
+                                      team1[4]->getStatDefense(), team1[4]->getStatVitesse(), 4, window, Info1);
         updatePlayerImageLabel(PowardForward1, team1[4], 150, 450, 226);
 
         updatePlayerTextLabel(PowardForward1Text, team1[4], 140, 676);
 
-        ClickableLabel Center1(QString(team1[5]->getName().c_str()), team1[5]->getATQ(), team1[5]->getDEF(), team1[5]->getVIT(), 5, window, Info1);
+        ClickableLabel Center1(QString(team1[5]->getName().c_str()), team1[5]->getStatAttaque(),
+                               team1[5]->getStatDefense(), team1[5]->getStatVitesse(), 5, window, Info1);
         updatePlayerImageLabel(Center1, team1[5], 150, 160, 226);
 
         updatePlayerTextLabel(Center1Text, team1[5], 140, 386);
@@ -335,9 +340,9 @@ public:
                                      PointGuard2Text, ShootingGuard2Text, SmallForward2Text, PowardForward2Text, Center2Text,
                                      team1, team2, indicePick);
             updateMatchLabel(textScore, matches[3], 650, 150, horloge);
-            Info1.setText(QString("Click Start to start the match\nClick Reset to reset the match\nClick Play to simulate a match"));
-            Info2.setText(QString("Click Start to start the match\nClick Reset to reset the match\nClick Play to simulate a match"));
-            Info3.setText(QString("Click Start to start the match\nClick Reset to reset the match\nClick Play to simulate a match"));
+            Info1.setText(QString("Click Start to start the Match\nClick Reset to reset the Match\nClick Play to simulate a Match"));
+            Info2.setText(QString("Click Start to start the Match\nClick Reset to reset the Match\nClick Play to simulate a Match"));
+            Info3.setText(QString("Click Start to start the Match\nClick Reset to reset the Match\nClick Play to simulate a Match"));
         });
 
         CoachBoost.setFixedSize(100, 20);

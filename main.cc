@@ -1,4 +1,4 @@
-#include "jeu.hh"
+#include "include/Jeu.hh"
 
 int main(int argc, char *argv[])
 {

@@ -354,7 +354,7 @@ AUTOLINK_SUPPORT       = YES
 
 # If you use STL classes (i.e. std::string, std::vector, etc.) but do not want
 # to include (a tag file for) the STL sources as input, then you should set this
-# tag to YES in order to let doxygen match functions declarations and
+# tag to YES in order to let doxygen Match functions declarations and
 # definitions whose arguments contain STL classes (e.g. func(std::string);
 # versus func(std::string) {}). This also make the inheritance and collaboration
 # diagrams that involve STL classes more complete and accurate.
@@ -648,11 +648,11 @@ SORT_GROUP_NAMES       = NO
 SORT_BY_SCOPE_NAME     = NO
 
 # If the STRICT_PROTO_MATCHING option is enabled and doxygen fails to do proper
-# type resolution of all parameters of a function it will reject a match between
+# type resolution of all parameters of a function it will reject a Match between
 # the prototype and the implementation of a member function even if there is
 # only one candidate or it is obvious which candidate to choose by doing a
-# simple string match. By disabling STRICT_PROTO_MATCHING doxygen will still
-# accept a match between prototype and implementation in such cases.
+# simple string Match. By disabling STRICT_PROTO_MATCHING doxygen will still
+# accept a Match between prototype and implementation in such cases.
 # The default value is: NO.
 
 STRICT_PROTO_MATCHING  = NO
@@ -995,10 +995,10 @@ INPUT_FILTER           =
 
 # The FILTER_PATTERNS tag can be used to specify filters on a per file pattern
 # basis. Doxygen will compare the file name with each pattern and apply the
-# filter if there is a match. The filters are a list of the form: pattern=filter
+# filter if there is a Match. The filters are a list of the form: pattern=filter
 # (like *.cpp=my_cpp_filter). See INPUT_FILTER for further information on how
 # filters are used. If the FILTER_PATTERNS tag is empty or if none of the
-# patterns match the file name, INPUT_FILTER is applied.
+# patterns Match the file name, INPUT_FILTER is applied.
 #
 # Note that for custom extensions or not directly supported extensions you also
 # need to set EXTENSION_MAPPING for the extension otherwise the files are not

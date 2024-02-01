@@ -5,12 +5,12 @@
 #include <vector>
 #include <random>
 
-#include "joueur.hh"
-#include "center.hh"
-#include "powerforward.hh"
-#include "smallforward.hh"
-#include "shootingguard.hh"
-#include "pointguard.hh"
+#include "../include/Joueur.hh"
+#include "../include/Center.hh"
+#include "../include/PowerForward.hh"
+#include "../include/SmallForward.hh"
+#include "../include/ShootingGuard.hh"
+#include "../include/PointGuard.hh"
 
 using namespace std;
 
@@ -59,11 +59,11 @@ vector<tuple<string, string, string, string, int, int , int>> playerDetails = {
     {"Adebayo", "Bam", "Center", "./Image/bam_adebayo.png", 91, 99, 92},
     {"Wembanyama", "Victor", "Center", "./Image/victor_wembanyama.png", 92, 99, 79}
     
-    };
+};
 
-map<int, joueur*> createPlayers()
+map<int, Joueur*> createPlayers()
 {
-    map<int, joueur*> players;
+    map<int, Joueur*> players;
     random_shuffle(playerDetails.begin(), playerDetails.end());
 
     for (int i = 1; i <= 10; ++i)
@@ -72,26 +72,23 @@ map<int, joueur*> createPlayers()
         std::string positionValue = std::get<2>(playerDetails[i - 1]);
 
         if(positionValue == "Center"){
-            players[i] = new center(nom, prenom, position, imagePath, ATQ, DEF, VIT);
+            players[i] = new Center(nom, prenom, position, imagePath, ATQ, DEF, VIT);
         } else if(positionValue == "Small Forward"){
-            players[i] = new smallforward(nom, prenom, position, imagePath, ATQ, DEF, VIT);
+            players[i] = new SmallForward(nom, prenom, position, imagePath, ATQ, DEF, VIT);
         } else if(positionValue == "Shooting Guard"){
-            players[i] = new shootingguard(nom, prenom, position, imagePath, ATQ, DEF, VIT);
+            players[i] = new ShootingGuard(nom, prenom, position, imagePath, ATQ, DEF, VIT);
         } else if(positionValue == "Power Forward"){
-            players[i] = new powerforward(nom, prenom, position, imagePath, ATQ, DEF, VIT);
+            players[i] = new PowerForward(nom, prenom, position, imagePath, ATQ, DEF, VIT);
         } else if(positionValue == "Point Guard"){
-            players[i] = new pointguard(nom, prenom, position, imagePath, ATQ, DEF, VIT);
-        } else {
-            players[i] = new joueur(nom, prenom, position, imagePath, ATQ, DEF, VIT);
-            cout << "Erreur: position invalide" << endl;
+            players[i] = new PointGuard(nom, prenom, position, imagePath, ATQ, DEF, VIT);
         }
     }
     return players;
 }
 
-pair<map<int, joueur*>, map<int, joueur*>> createTeams(map<int, joueur*> players) {
-    map<int, joueur*> team1;
-    map<int, joueur*> team2;
+pair<map<int, Joueur*>, map<int, Joueur*>> createTeams(map<int, Joueur*> players) {
+    map<int, Joueur*> team1;
+    map<int, Joueur*> team2;
     int nextkey1 = 1;
     int nextkey2 = 1;
 
@@ -122,7 +119,7 @@ pair<map<int, joueur*>, map<int, joueur*>> createTeams(map<int, joueur*> players
     return make_pair(team1, team2);
 }
 
-joueur* choisirJoueurAuHasard(map<int, joueur*>& equipe) {
+Joueur* choisirJoueurAuHasard(map<int, Joueur*>& equipe) {
     // Vérifier si l'équipe n'est pas vide
     if (equipe.empty()) {
         std::cerr << "L'équipe est vide." << std::endl;
@@ -137,13 +134,13 @@ joueur* choisirJoueurAuHasard(map<int, joueur*>& equipe) {
     std::uniform_int_distribution<> distrib(0, equipe.size() - 1);
     auto it = std::next(equipe.begin(), distrib(gen));
 
-    // Récupérer le joueur à la position aléatoire
+    // Récupérer le Joueur à la position aléatoire
     return it->second;
 }
 
-// Fonction qui retourne le joueur avec le plus de points marqués
-joueur* getMVP(map<int, joueur*> players){
-    joueur* mvp = players[1];
+// Fonction qui retourne le Joueur avec le plus de points marqués
+Joueur* getMVP(map<int, Joueur*> players){
+    Joueur* mvp = players[1];
     for (int i = 1; i <= players.size(); ++i) {
         if(players[i]->getPoints() > mvp->getPoints()){
             mvp = players[i];
@@ -152,7 +149,7 @@ joueur* getMVP(map<int, joueur*> players){
     return mvp;
 }
 
-std::ostream& operator<<(std::ostream& os, const joueur& joueur) {
-    os << joueur._prenom << " " << joueur._nom << " scored " << joueur._points << " points";
+std::ostream& operator<<(std::ostream& os, const Joueur& joueur) {
+    os << joueur._prenom << " " << joueur._nom << " scored " << joueur.points << " points";
     return os;
 }
