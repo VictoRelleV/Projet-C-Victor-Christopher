@@ -10,7 +10,7 @@
 
 class ClickableLabel : public QLabel {
 public:
-    ClickableLabel(const QString& playerName, int attack, int defense, int speed, int position, QWidget* parent = nullptr, QLabel* infoLabel = nullptr);
+    ClickableLabel(const QString& playerName, int attack, int defense, int speed, int position, QWidget& parent, QLabel& infoLabel);
 
     int getAttack() const {
         return attack;
@@ -61,10 +61,10 @@ private:
     int defense;
     int speed;
     int position;
-    QLabel* infoLabel; // Ajout du membre infoLabel
+    QLabel& infoLabel;
 };
 
-void recreateLabels(ClickableLabel* PointGuard1, ClickableLabel* ShootingGuard1, ClickableLabel* SmallForward1, 
-                    ClickableLabel* PowerForward1, ClickableLabel* Center1, map<int, joueur*> team1);
+void recreateLabels(ClickableLabel& PointGuard1, ClickableLabel& ShootingGuard1, ClickableLabel& SmallForward1,
+                    ClickableLabel& PowerForward1, ClickableLabel& Center1, map<int, joueur*> team1);
 
 #endif

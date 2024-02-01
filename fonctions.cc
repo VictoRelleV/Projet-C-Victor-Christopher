@@ -1,16 +1,11 @@
-#include <QApplication>
 #include <QWidget>
 #include <QLabel>
-#include <QPushButton>
-#include <QMessageBox>
-#include <QInputDialog>
 #include <QLineEdit>
-#include <QTableWidget>
 #include <QBoxLayout>
 #include <QHeaderView>
-#include <QMouseEvent>
 
 #include <map>
+#include <random>
 #include <thread>
 #include <chrono>
 #include <vector>
@@ -19,12 +14,11 @@
 #include "fonctions.hh"
 #include "match.hh"
 #include "joueur.hh"
-#include "clickablelabel.hh"
 
 using namespace std;
 
 // Fonction pour mettre à jour le texte d'un QLabel avec les données d'un match
-void updateMatchLabel(QLabel *label, match* currentMatch, int x, int y, int horloge)
+void updateMatchLabel(QLabel &label, match* currentMatch, int x, int y, int horloge)
 {
     QString quarter;
     int adjustedHorloge = horloge;
@@ -40,27 +34,27 @@ void updateMatchLabel(QLabel *label, match* currentMatch, int x, int y, int horl
         quarter = "4th";
         adjustedHorloge -= 36;
     } 
-    label->setStyleSheet("border: 2px solid black;"); // You can adjust the border size and color
-    label->setFixedSize(200, 100);
-    label->setText(QString("%1 %2:00\n%3 %4 - %5 %6")
+    label.setStyleSheet("border: 2px solid black;"); // You can adjust the border size and color
+    label.setFixedSize(200, 100);
+    label.setText(QString("%1 %2:00\n%3 %4 - %5 %6")
                 .arg(quarter)
                 .arg(adjustedHorloge)
                 .arg(currentMatch->getEquipe1().c_str())
                 .arg(currentMatch->getScore1())
                 .arg(currentMatch->getEquipe2().c_str())
                 .arg(currentMatch->getScore2()));
-    label->move(x, y);
-    label->setAlignment(Qt::AlignCenter); // Centrer le texte dans le label
-    label->show();
+    label.move(x, y);
+    label.setAlignment(Qt::AlignCenter); // Centrer le texte dans le label
+    label.show();
 }
 
 // Fonction pour mettre à jour l'image d'un QLabel avec l'image d'un joueur
-void updatePlayerImageLabel(QLabel* label, joueur* player, int posX, int posY, int size) {
+void updatePlayerImageLabel(QLabel& label, joueur* player, int posX, int posY, int size) {
     QPixmap pixmap(player->getImagePath().c_str());
     pixmap = pixmap.scaled(size, size, Qt::KeepAspectRatio);
-    label->setPixmap(pixmap);
-    label->move(posX, posY);
-    label->show();
+    label.setPixmap(pixmap);
+    label.move(posX, posY);
+    label.show();
 }
 
 QString getPositionLabel(joueur* player) {
@@ -82,35 +76,35 @@ QString getPositionLabel(joueur* player) {
 }
 
 // Fonction pour mettre à jour le texte d'un QLabel avec les données d'un joueur
-void updatePlayerTextLabel(QLabel* label, joueur* player, int posX, int posY) {
+void updatePlayerTextLabel(QLabel& label, joueur* player, int posX, int posY) {
     QString positionLabel = getPositionLabel(player);
 
-    label->setStyleSheet("border: 2px solid black;"); // You can adjust the border size and color
-    label->setFixedSize(180, 40);
-    label->setText(QString("%1 %2 %3\nATQ: %4 DEF: %5 VIT: %6")
+    label.setStyleSheet("border: 2px solid black;"); // You can adjust the border size and color
+    label.setFixedSize(180, 40);
+    label.setText(QString("%1 %2 %3\nATQ: %4 DEF: %5 VIT: %6")
                             .arg(player->getPrenom().c_str())
                             .arg(player->getNom().c_str())
                             .arg(positionLabel)
                             .arg(player->getATQ())
                             .arg(player->getDEF())
                             .arg(player->getVIT()));
-    label->setAlignment(Qt::AlignCenter); // Centrer le texte
-    label->move(posX, posY);
-    label->show();
+    label.setAlignment(Qt::AlignCenter); // Centrer le texte
+    label.move(posX, posY);
+    label.show();
 }
 
 // Fonction pour mettre à jour le texte d'un QLabel avec les données d'un joueur
-void updatePlayerTextLabel2(QLabel* label, joueur* player, int posX, int posY, int reveal) {
+void updatePlayerTextLabel2(QLabel& label, joueur* player, int posX, int posY, int reveal) {
     QString positionLabel = getPositionLabel(player);
-    label->setStyleSheet("border: 2px solid black;"); // You can adjust the border size and color
-    label->setFixedSize(180, 40);
+    label.setStyleSheet("border: 2px solid black;"); // You can adjust the border size and color
+    label.setFixedSize(180, 40);
     if(reveal==0){
-        label->setText(QString("%1 %2 %3\nATQ: XX DEF: XX VIT: XX")
+        label.setText(QString("%1 %2 %3\nATQ: XX DEF: XX VIT: XX")
                                 .arg(player->getPrenom().c_str())
                                 .arg(player->getNom().c_str())
                                 .arg(positionLabel));
     } else {
-        label->setText(QString("%1 %2 %3\nATQ: %4 DEF: %5 VIT: %6")
+        label.setText(QString("%1 %2 %3\nATQ: %4 DEF: %5 VIT: %6")
                                 .arg(player->getPrenom().c_str())
                                 .arg(player->getNom().c_str())
                                 .arg(positionLabel)
@@ -118,14 +112,14 @@ void updatePlayerTextLabel2(QLabel* label, joueur* player, int posX, int posY, i
                                 .arg(player->getDEF())
                                 .arg(player->getVIT()));
     }
-    label->setAlignment(Qt::AlignCenter); // Centrer le texte
-    label->move(posX, posY);
-    label->show();
+    label.setAlignment(Qt::AlignCenter); // Centrer le texte
+    label.move(posX, posY);
+    label.show();
 }
 
 // Fonction pour mettre à jour le texte des QLabel avec les données d'un joueur
-void updatePlayerTextLabelAll(QLabel* PointGuard1Text, QLabel* ShootingGuard1Text, QLabel* SmallForwardText, QLabel* PowardForward1Text, QLabel* Center1Text,
-                              QLabel* PointGuard2Text, QLabel* ShootingGuard2Text, QLabel* SmallForward2Text, QLabel* PowardForward2Text, QLabel* Center2Text,
+void updatePlayerTextLabelAll(QLabel& PointGuard1Text, QLabel& ShootingGuard1Text, QLabel& SmallForwardText, QLabel& PowardForward1Text, QLabel& Center1Text,
+                              QLabel& PointGuard2Text, QLabel& ShootingGuard2Text, QLabel& SmallForward2Text, QLabel& PowardForward2Text, QLabel& Center2Text,
                               map<int, joueur*> team1, map<int, joueur*> team2, vector<int> indicePick) {
 
     updatePlayerTextLabel(PointGuard1Text, team1[1], 540, 535);
@@ -142,8 +136,8 @@ void updatePlayerTextLabelAll(QLabel* PointGuard1Text, QLabel* ShootingGuard1Tex
 }
 
 // Fonction pour mettre à jour les images des joueurs de chaque équipe
-void updatePlayerImageLabelAll(QLabel* PointGuard1, QLabel* ShootingGuard1, QLabel* SmallForward1, QLabel* PowardForward1, QLabel* Center1, 
-                                QLabel* PointGuard2, QLabel* ShootingGuard2, QLabel* SmallForward2, QLabel* PowardForward2, QLabel* Center2, 
+void updatePlayerImageLabelAll(QLabel& PointGuard1, QLabel& ShootingGuard1, QLabel& SmallForward1, QLabel& PowardForward1, QLabel& Center1,
+                                QLabel& PointGuard2, QLabel& ShootingGuard2, QLabel& SmallForward2, QLabel& PowardForward2, QLabel& Center2,
                                 map<int, joueur*> team1, map<int, joueur*> team2) {
 
     updatePlayerImageLabel(PointGuard1, team1[1], 550, 309, 226);
@@ -159,14 +153,14 @@ void updatePlayerImageLabelAll(QLabel* PointGuard1, QLabel* ShootingGuard1, QLab
     updatePlayerImageLabel(Center2, team2[5], 1190, 160, 226);
 }
 
-int endGame(QLabel* Info, map<int, joueur*> team1, map<int, joueur*> team2, map<int, match*> matches, int horloge, int start, joueur* mvp){
+int endGame(QLabel& Info, map<int, joueur*> team1, map<int, joueur*> team2, map<int, match*> matches, int horloge, int start, joueur* mvp){
     if(start == 1 && horloge >= 12) {
         if(matches[3]->getScore1() > matches[3]->getScore2()) {
             for (int i = 1; i <= 5; ++i) {
                 cout << *team1[i] << endl;
             }
             mvp = getMVP(team1);
-            Info->setText(QString("%1 wins\n%2 %3 is the MVP with %4 points")
+            Info.setText(QString("%1 wins\n%2 %3 is the MVP with %4 points")
                             .arg(matches[3]->getEquipe1().c_str())
                             .arg(mvp->getPrenom().c_str())
                             .arg(mvp->getNom().c_str())
@@ -176,35 +170,35 @@ int endGame(QLabel* Info, map<int, joueur*> team1, map<int, joueur*> team2, map<
                 cout << *team2[i] << endl;
             }
             mvp = getMVP(team2);
-            Info->setText(QString("%1 wins\n%2 %3 is the MVP with %4 points")
+            Info.setText(QString("%1 wins\n%2 %3 is the MVP with %4 points")
                             .arg(matches[3]->getEquipe2().c_str())
                             .arg(mvp->getPrenom().c_str())
                             .arg(mvp->getNom().c_str())
                             .arg(mvp->getPoints()));
         } else {
-            Info->setText(QString("Draw"));
+            Info.setText(QString("Draw"));
         }
     start = 0;
     }
     return start;
 }
 
-void hideAfterDelay(QLabel *label) {
+void hideAfterDelay(QLabel& label) {
     // Attendre pendant 10 secondes
     std::this_thread::sleep_for(std::chrono::seconds(5));
 
     // Cacher le QLabel
-    label->hide();
+    label.hide();
 }
 
-void askQuestion(QLabel* Info1, joueur* player, map<int, match*> matches, vector<Question> questions){
-    random_shuffle(questions.begin(), questions.end());
+void askQuestion(QLabel& Info1, joueur* player, map<int, match*> matches, vector<Question> questions){
+    shuffle(questions.begin(), questions.end(), std::mt19937(std::random_device()()));
     int userAnswerIndex = Quizz(questions);
 
     // Traiter la réponse en fonction du bouton cliqué
     if (userAnswerIndex != -1) {
         if (userAnswerIndex == questions[0].correctOptionIndex) {
-            Info1->setText(QString("Good answer\n%1 %2 scores 3 points")
+            Info1.setText(QString("Good answer\n%1 %2 scores 3 points")
                             .arg(player->getPrenom().c_str())
                             .arg(player->getNom().c_str()));
             player->setPoints(player->getPoints() + 3);
@@ -212,7 +206,7 @@ void askQuestion(QLabel* Info1, joueur* player, map<int, match*> matches, vector
             player->addSTAT(-3);
 
         } else {
-            Info1->setText(QString("Wrong answer"));
+            Info1.setText(QString("Wrong answer"));
             player->addSTAT(-10);
         }
     }

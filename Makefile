@@ -22,5 +22,10 @@ all: $(TARGET)
 $(TARGET): $(SOURCES)
 	QT_QPA_PLATFORM=wayland $(CXX) $(CXXFLAGS) -o $@ $^ $(QT_INCLUDE) $(QT_LIBS)
 
+run: $(TARGET)
+	./$(TARGET)
+
 clean:
-	rm -f $(TARGET)
+	rm -f $(TARGET) *.o
+
+.PHONY: clean run

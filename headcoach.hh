@@ -30,7 +30,7 @@ public:
         return _equipe;
     }
 
-    vector<int> scoutingReport(int horloge, int nbrChoix, map<int, match*> matches, map<int, joueur*> team2, QLabel* Info)
+    vector<int> scoutingReport(int horloge, int nbrChoix, map<int, match*> matches, map<int, joueur*> team2, QLabel& Info)
     {
         // Utilise l'horloge pour initialiser le générateur de nombres aléatoires
         std::random_device rd;
@@ -39,10 +39,10 @@ public:
         uniform_int_distribution<> distribution5(0, 4);
 
         vector<int> indices(5, 0);
-        int coût = nbrChoix * (12-horloge);
-        team2[1]->setPoints(team2[1]->getPoints() + coût);
-        matches[3]->setScore2(matches[3]->getScore2() + coût);
-        Info->setText(QString::fromStdString(team2[1]->getPrenom() + " " + team2[1]->getNom() + " scored " + to_string(coût) + " points!"));
+        int cout = nbrChoix * (12-horloge);
+        team2[1]->setPoints(team2[1]->getPoints() + cout);
+        matches[3]->setScore2(matches[3]->getScore2() + cout);
+        Info.setText(QString::fromStdString(team2[1]->getPrenom() + " " + team2[1]->getNom() + " scored " + to_string(cout) + " points!"));
         for (int i = 0; i < nbrChoix; ++i) {
             int nouvelIndice;
             do {

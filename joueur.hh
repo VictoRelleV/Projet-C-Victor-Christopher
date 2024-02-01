@@ -89,51 +89,51 @@ public:
         return temp;
     }
 
-    virtual void atq(joueur* adversaire, QLabel* Info, vector<Question> questions, map<int, match*> matches)
+    virtual void atq(joueur* adversaire, QLabel& Info, vector<Question> questions, map<int, match*> matches)
     {
         if(this->getATQ() > adversaire->getDEF()) {
             matches[3]->setScore1(matches[3]->getScore1() + this->getATQ()-adversaire->getDEF());
-            Info->setText(QString("%1 %2 marque %3 points")
+            Info.setText(QString("%1 %2 marque %3 points")
                 .arg(this->getPrenom().c_str())
                 .arg(this->getNom().c_str())
                 .arg(this->getATQ()-adversaire->getDEF()));
         } else if (this->getATQ() < adversaire->getDEF()) {
             matches[3]->setScore2(matches[3]->getScore2() + adversaire->getDEF()-this->getATQ());
-            Info->setText(QString("%1 %2 marque %3 points")
+            Info.setText(QString("%1 %2 marque %3 points")
                 .arg(adversaire->getPrenom().c_str())
                 .arg(adversaire->getNom().c_str())
                 .arg(adversaire->getDEF()-this->getATQ()));
         }
     }
 
-    virtual void def(joueur* adversaire, QLabel* Info, vector<Question> questions, map<int, match*> matches)
+    virtual void def(joueur* adversaire, QLabel& Info, vector<Question> questions, map<int, match*> matches)
     {
         if(this->getDEF() > adversaire->getATQ()) {
             matches[3]->setScore1(matches[3]->getScore1() + this->getDEF()-adversaire->getATQ());
-            Info->setText(QString("%1 %2 marque %3 points")
+            Info.setText(QString("%1 %2 marque %3 points")
                 .arg(this->getPrenom().c_str())
                 .arg(this->getNom().c_str())
                 .arg(this->getDEF()-adversaire->getATQ()));
         } else if (this->getDEF() < adversaire->getATQ()) {
             matches[3]->setScore2(matches[3]->getScore2() + adversaire->getATQ()-this->getDEF());
-            Info->setText(QString("%1 %2 marque %3 points")
+            Info.setText(QString("%1 %2 marque %3 points")
                 .arg(adversaire->getPrenom().c_str())
                 .arg(adversaire->getNom().c_str())
                 .arg(adversaire->getATQ()-this->getDEF()));
         }
     }
 
-    virtual void vit(joueur* adversaire, QLabel* Info, vector<Question> questions, map<int, match*> matches)
+    virtual void vit(joueur* adversaire, QLabel& Info, vector<Question> questions, map<int, match*> matches)
     {
         if(this->getVIT() > adversaire->getVIT()) {
             matches[3]->setScore1(matches[3]->getScore1() + this->getVIT()-adversaire->getVIT());
-            Info->setText(QString("%1 %2 marque %3 points")
+            Info.setText(QString("%1 %2 marque %3 points")
                 .arg(this->getPrenom().c_str())
                 .arg(this->getNom().c_str())
                 .arg(this->getVIT()-adversaire->getVIT()));
         } else if (this->getVIT() < adversaire->getVIT()) {
             matches[3]->setScore2(matches[3]->getScore2() + adversaire->getVIT()-this->getVIT());
-            Info->setText(QString("%1 %2 marque %3 points")
+            Info.setText(QString("%1 %2 marque %3 points")
                 .arg(adversaire->getPrenom().c_str())
                 .arg(adversaire->getNom().c_str())
                 .arg(adversaire->getVIT()-this->getVIT()));
