@@ -6,7 +6,7 @@
 #include <QMouseEvent>
 #include <iostream>
 
-#include "joueur.hh"
+#include "Joueur.hh"
 
 class ClickableLabel : public QLabel {
 public:
@@ -65,6 +65,6 @@ private:
 };
 
 void recreateLabels(ClickableLabel& PointGuard1, ClickableLabel& ShootingGuard1, ClickableLabel& SmallForward1,
-                    ClickableLabel& PowerForward1, ClickableLabel& Center1, map<int, joueur*> team1);
+                    ClickableLabel& PowerForward1, ClickableLabel& Center1, map<int, Joueur*> team1);
 
 #endif

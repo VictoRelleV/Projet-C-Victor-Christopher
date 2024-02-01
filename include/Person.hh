@@ -2,10 +2,11 @@
 #define PERSON_HH
 
 #include <string>
+#include <utility>
 
 using namespace std;
 
-class person
+class Person
 {
 protected:
     string _nom;
@@ -13,15 +14,8 @@ protected:
     string _imagePath; // New attribute for image path
 
 public:
-
-    person()
-    {
-    }
-
-    person(string nom, string prenom, string imagePath)
-        : _nom(nom), _prenom(prenom), _imagePath(imagePath)
-    {
-    }
+    Person(string nom, string prenom, string imagePath)
+        : _nom(std::move(nom)), _prenom(std::move(prenom)), _imagePath(std::move(imagePath)) {}
 
     // Getter and setter for the image path
     const string& getImagePath() const {
@@ -45,7 +39,7 @@ public:
         return _prenom+" "+_nom;
     }
 
-    friend std::ostream& operator<<(std::ostream& os, const person& personne) {
+    friend std::ostream& operator<<(std::ostream& os, const Person& personne) {
         os << "Nom: " << personne._nom << ", Prenom: " << personne._prenom;
         return os;
     }

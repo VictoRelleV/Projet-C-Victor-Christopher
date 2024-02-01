@@ -1,5 +1,5 @@
-#include "clickablelabel.hh"
-#include "joueur.hh"
+#include "../include/ClickableLabel.hh"
+#include "../include/Joueur.hh"
 #include <QMenu>
 #include <QAction>
 #include <iostream>
@@ -41,35 +41,35 @@ void ClickableLabel::mousePressEvent(QMouseEvent *event){
 }
 
 void recreateLabels(ClickableLabel& PointGuard1, ClickableLabel& ShootingGuard1, ClickableLabel& SmallForward1,
-                    ClickableLabel& PowerForward1, ClickableLabel& Center1, map<int, joueur*> team1) {
+                    ClickableLabel& PowerForward1, ClickableLabel& Center1, map<int, Joueur*> team1) {
 
     PointGuard1.setPlayerName(team1[1]->getPrenom() + " " + team1[1]->getNom());
-    PointGuard1.setAttack(team1[1]->getATQ());
-    PointGuard1.setDefense(team1[1]->getDEF());
-    PointGuard1.setSpeed(team1[1]->getVIT());
+    PointGuard1.setAttack(team1[1]->getStatAttaque());
+    PointGuard1.setDefense(team1[1]->getStatDefense());
+    PointGuard1.setSpeed(team1[1]->getStatVitesse());
     //PointGuard1.setPosition(team1[1]->getPosition());
 
     ShootingGuard1.setPlayerName(team1[2]->getPrenom() + " " + team1[2]->getNom());
-    ShootingGuard1.setAttack(team1[2]->getATQ());
-    ShootingGuard1.setDefense(team1[2]->getDEF());
-    ShootingGuard1.setSpeed(team1[2]->getVIT());
+    ShootingGuard1.setAttack(team1[2]->getStatAttaque());
+    ShootingGuard1.setDefense(team1[2]->getStatDefense());
+    ShootingGuard1.setSpeed(team1[2]->getStatVitesse());
     //ShootingGuard1.setPosition(team1[2]->getPosition());
 
     SmallForward1.setPlayerName(team1[3]->getPrenom() + " " + team1[3]->getNom());
-    SmallForward1.setAttack(team1[3]->getATQ());
-    SmallForward1.setDefense(team1[3]->getDEF());
-    SmallForward1.setSpeed(team1[3]->getVIT());
+    SmallForward1.setAttack(team1[3]->getStatAttaque());
+    SmallForward1.setDefense(team1[3]->getStatDefense());
+    SmallForward1.setSpeed(team1[3]->getStatVitesse());
     //SmallForward1.setPosition(team1[3]->getPosition());
 
     PowerForward1.setPlayerName(team1[4]->getPrenom() + " " + team1[4]->getNom());
-    PowerForward1.setAttack(team1[4]->getATQ());
-    PowerForward1.setDefense(team1[4]->getDEF());
-    PowerForward1.setSpeed(team1[4]->getVIT());
+    PowerForward1.setAttack(team1[4]->getStatAttaque());
+    PowerForward1.setDefense(team1[4]->getStatDefense());
+    PowerForward1.setSpeed(team1[4]->getStatVitesse());
     //PowerForward1.setPosition(team1[4]->getPosition());
 
     Center1.setPlayerName(team1[5]->getPrenom() + " " + team1[5]->getNom());
-    Center1.setAttack(team1[5]->getATQ());
-    Center1.setDefense(team1[5]->getDEF());
-    Center1.setSpeed(team1[5]->getVIT());
+    Center1.setAttack(team1[5]->getStatAttaque());
+    Center1.setDefense(team1[5]->getStatDefense());
+    Center1.setSpeed(team1[5]->getStatVitesse());
     //Center1.setPosition(team1[5]->getPosition());
 }

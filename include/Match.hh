@@ -4,27 +4,23 @@
 #include <iostream>
 #include <string>
 #include <map>
+#include <utility>
 
 using namespace std;
 
-class match
-{
+class Match {
 protected:
     string _equipe1;
     string _equipe2;
-    int _score1;
-    int _score2;
+    int _score1{};
+    int _score2{};
     string _date;
 
 public:
-    match()
-    {
-    }
+    Match() = default;
 
-    match(string equipe1, string equipe2, int score1, int score2, string date)
-        : _equipe1(equipe1), _equipe2(equipe2), _score1(score1), _score2(score2), _date(date)
-    {
-    }
+    Match(string equipe1, string equipe2, int score1, int score2, string date)
+        : _equipe1(std::move(equipe1)), _equipe2(std::move(equipe2)), _score1(score1), _score2(score2), _date(std::move(date)) {}
 
     // Other getter methods
     const string& getEquipe1() const {
@@ -60,6 +56,6 @@ public:
     }
 };
 
-map<int, match*> createMatches();
+map<int, Match*> createMatches();
 
 #endif
