@@ -1,0 +1,21 @@
+name: C/C++ CI
+
+on:
+  push:
+    branches: [ main ]
+
+jobs:
+  build-unix:
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        os: [ubuntu-latest]
+
+    steps:
+      - uses: actions/checkout@v2
+      - name: Install Qt5
+        run: sudo apt-get install qt5-default
+      - name: Install SFML
+        run: sudo apt-get install libsfml-dev
+      - name: Build tests
+        run: mkdir -p build && cd build && cmake .. && make OlympicBasketball_test && cp OlympicBasketball_test .. && cd .. && ./OlympicBasketball_test && rm OlympicBasketball_test

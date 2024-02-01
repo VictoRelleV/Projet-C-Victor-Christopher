@@ -201,7 +201,7 @@ void askQuestion(QLabel& Info1, Joueur* player, map<int, Match*> matches, vector
             Info1.setText(QString("Good answer\n%1 %2 scores 3 points")
                             .arg(player->getPrenom().c_str())
                             .arg(player->getNom().c_str()));
-            player->setPoints(player->getPoints() + 3);
+            *player += 3;
             matches[3]->setScore1(matches[3]->getScore1() + 3);
             player->addStat(-3);
 

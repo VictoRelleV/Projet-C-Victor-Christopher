@@ -1,0 +1,10 @@
+animal.o: ../animal.cc ../animal.hh ../food.hh ../constant.hh \
+ ../distribution.hh
+food.o: ../food.cc ../food.hh ../constant.hh ../distribution.hh
+fox.o: ../fox.cc ../fox.hh ../animal.hh ../food.hh ../rabbit.hh \
+ ../vegetal.hh ../constant.hh ../distribution.hh
+main.o: ../main.cc ../animal.hh ../food.hh ../rabbit.hh ../vegetal.hh \
+ ../fox.hh ../group.hh
+rabbit.o: ../rabbit.cc ../rabbit.hh ../animal.hh ../food.hh ../vegetal.hh \
+ ../constant.hh ../distribution.hh
+vegetal.o: ../vegetal.cc ../vegetal.hh ../food.hh

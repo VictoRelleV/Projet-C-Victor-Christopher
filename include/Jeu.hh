@@ -212,32 +212,32 @@ public:
         Info3.setAlignment(Qt::AlignCenter); // Centrer le texte dans le label
         Info3.show();
 
-        ClickableLabel PointGuard1(QString(team1[1]->getName().c_str()), team1[1]->getStatAttaque(),
-                                   team1[1]->getStatDefense(), team1[1]->getStatVitesse(), 1, window, Info1);
+        ClickableLabel PointGuard1(QString(team1[1]->getFullName().c_str()), team1[1]->getStatAttaque(),
+                                   team1[1]->getStatDefense(), team1[1]->getStatVitesse(), 1, window, Info1, &action1, &poste);
         updatePlayerImageLabel(PointGuard1, team1[1], 550, 309, 226);
 
         updatePlayerTextLabel(PointGuard1Text, team1[1], 540, 535);
 
-        ClickableLabel ShootingGuard1(QString(team1[2]->getName().c_str()), team1[2]->getStatAttaque(),
-                                      team1[2]->getStatDefense(), team1[2]->getStatVitesse(), 2, window, Info1);
+        ClickableLabel ShootingGuard1(QString(team1[2]->getFullName().c_str()), team1[2]->getStatAttaque(),
+                                      team1[2]->getStatDefense(), team1[2]->getStatVitesse(), 2, window, Info1, &action1, &poste);
         updatePlayerImageLabel(ShootingGuard1, team1[2], 350, 410, 226);
 
         updatePlayerTextLabel(ShootingGuard1Text, team1[2], 340, 636);
 
-        ClickableLabel SmallForward1(QString(team1[3]->getName().c_str()), team1[3]->getStatAttaque(),
-                                     team1[3]->getStatDefense(), team1[3]->getStatVitesse(), 3, window, Info1);
+        ClickableLabel SmallForward1(QString(team1[3]->getFullName().c_str()), team1[3]->getStatAttaque(),
+                                     team1[3]->getStatDefense(), team1[3]->getStatVitesse(), 3, window, Info1, &action1, &poste);
         updatePlayerImageLabel(SmallForward1, team1[3], 350, 120, 226);
 
         updatePlayerTextLabel(SmallForwardText, team1[3], 340, 346);
 
-        ClickableLabel PowardForward1(QString(team1[4]->getName().c_str()), team1[4]->getStatAttaque(),
-                                      team1[4]->getStatDefense(), team1[4]->getStatVitesse(), 4, window, Info1);
+        ClickableLabel PowardForward1(QString(team1[4]->getFullName().c_str()), team1[4]->getStatAttaque(),
+                                      team1[4]->getStatDefense(), team1[4]->getStatVitesse(), 4, window, Info1, &action1, &poste);
         updatePlayerImageLabel(PowardForward1, team1[4], 150, 450, 226);
 
         updatePlayerTextLabel(PowardForward1Text, team1[4], 140, 676);
 
-        ClickableLabel Center1(QString(team1[5]->getName().c_str()), team1[5]->getStatAttaque(),
-                               team1[5]->getStatDefense(), team1[5]->getStatVitesse(), 5, window, Info1);
+        ClickableLabel Center1(QString(team1[5]->getFullName().c_str()), team1[5]->getStatAttaque(),
+                               team1[5]->getStatDefense(), team1[5]->getStatVitesse(), 5, window, Info1, &action1, &poste);
         updatePlayerImageLabel(Center1, team1[5], 150, 160, 226);
 
         updatePlayerTextLabel(Center1Text, team1[5], 140, 386);

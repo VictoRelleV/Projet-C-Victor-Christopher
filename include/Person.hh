@@ -35,8 +35,8 @@ public:
         return _prenom;
     }
 
-    const string getName() const {
-        return _prenom+" "+_nom;
+    const string getFullName() const {
+        return _prenom + " " + _nom;
     }
 
     friend std::ostream& operator<<(std::ostream& os, const Person& personne) {

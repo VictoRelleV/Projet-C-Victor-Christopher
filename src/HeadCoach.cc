@@ -12,7 +12,7 @@ vector<int> HeadCoach::scoutingReport(int horloge, int nbrChoix, map<int, Match 
 
     vector<int> indices(5, 0);
     int cout = nbrChoix * (12-horloge);
-    team2[1]->setPoints(team2[1]->getPoints() + cout);
+    *team2[1] += cout;
     matches[3]->setScore2(matches[3]->getScore2() + cout);
     Info.setText(QString::fromStdString(team2[1]->getPrenom() + " " + team2[1]->getNom() + " scored " + to_string(cout) + " points!"));
     for (int i = 0; i < nbrChoix; ++i) {

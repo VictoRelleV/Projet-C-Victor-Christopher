@@ -27,7 +27,7 @@ void PointGuard::atq(Joueur* adversaire, QLabel &Info, vector<Question> question
         this->addStat(-(this->getStatAttaque() + bonus - adversaire->getStatDefense()));
     } else if (this->getStatAttaque() + bonus < adversaire->getStatDefense()) {
         matches[3]->setScore2(matches[3]->getScore2() + adversaire->getStatDefense() - (this->getStatAttaque() + bonus));
-        adversaire->setPoints(adversaire->getPoints() + adversaire->getStatDefense() - (this->getStatAttaque() + bonus));
+        *adversaire += adversaire->getStatDefense() - (this->getStatAttaque() + bonus);
         Info.setText(QString("%1 %2 marque %3 points")
                              .arg(adversaire->getPrenom().c_str())
                              .arg(adversaire->getNom().c_str())
@@ -55,7 +55,7 @@ void PointGuard::def(Joueur* adversaire, QLabel &Info, vector<Question> question
         this->addStat(-(this->getStatDefense() + bonus - adversaire->getStatAttaque()));
     } else if (this->getStatDefense() + bonus < adversaire->getStatAttaque()) {
         matches[3]->setScore2(matches[3]->getScore2() + adversaire->getStatAttaque() - (this->getStatDefense() + bonus));
-        adversaire->setPoints(adversaire->getPoints() + adversaire->getStatAttaque() - (this->getStatDefense() + bonus));
+        *adversaire += adversaire->getStatAttaque() - (this->getStatDefense() + bonus);
         Info.setText(QString("%1 %2 marque %3 points")
                              .arg(adversaire->getPrenom().c_str())
                              .arg(adversaire->getNom().c_str())
@@ -82,7 +82,7 @@ void PointGuard::vit(Joueur* adversaire, QLabel &Info, vector<Question> question
         this->addStat(-(this->getStatVitesse() + bonus - adversaire->getStatVitesse()));
     } else if (this->getStatVitesse() + bonus < adversaire->getStatVitesse()) {
         matches[3]->setScore2(matches[3]->getScore2() + adversaire->getStatVitesse() - (this->getStatVitesse() + bonus));
-        adversaire->setPoints(adversaire->getPoints() + adversaire->getStatVitesse() - (this->getStatVitesse() + bonus));
+        *adversaire += adversaire->getStatVitesse() - (this->getStatVitesse() + bonus);
         Info.setText(QString("%1 %2 marque %3 points")
                              .arg(adversaire->getPrenom().c_str())
                              .arg(adversaire->getNom().c_str())
