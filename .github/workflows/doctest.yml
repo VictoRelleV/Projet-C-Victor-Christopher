@@ -9,10 +9,14 @@ jobs:
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
-        os: [ubuntu-latest]
+        os: [ubuntu-20.04]
 
     steps:
       - uses: actions/checkout@v2
+      - name: Update apt-get
+        run: sudo apt-get update
+      - name: Install CMake
+        run: sudo apt-get install build-essential cmake
       - name: Install Qt5
         run: sudo apt-get install qt5-default
       - name: Install SFML
