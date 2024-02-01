@@ -80,6 +80,11 @@ public:
         return this->points;
     }
 
+    int operator+=(int nbPoints) {
+        this->points += nbPoints;
+        return this->points;
+    }
+
     friend std::ostream& operator<<(std::ostream& os, const Joueur& joueur);
 
     virtual void atq(Joueur* adversaire, QLabel& Info, vector<Question> questions, map<int, Match*> matches) = 0;

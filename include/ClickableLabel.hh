@@ -10,7 +10,7 @@
 
 class ClickableLabel : public QLabel {
 public:
-    ClickableLabel(const QString& playerName, int attack, int defense, int speed, int position, QWidget& parent, QLabel& infoLabel);
+    ClickableLabel(const QString& playerName, int attack, int defense, int speed, int position, QWidget& parent, QLabel& infoLabel, int* action1, int* poste);
 
     int getAttack() const {
         return attack;
@@ -61,6 +61,8 @@ private:
     int defense;
     int speed;
     int position;
+    int* action1;
+    int* poste;
     QLabel& infoLabel;
 };
 
