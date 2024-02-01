@@ -1,6 +1,6 @@
 #include "../include/ShootingGuard.hh"
 
-void ShootingGuard::atq(Joueur *adversaire, QLabel &Info, vector <Question> questions, map<int, Match *> matches) {
+void ShootingGuard::atq(Joueur* adversaire, QLabel &Info, vector <Question> questions, map<int, Match *> matches) {
     int bonus = 0;
     if(adversaire->getPosition()=="Point Guard"){
         bonus = 2;
@@ -28,7 +28,7 @@ void ShootingGuard::atq(Joueur *adversaire, QLabel &Info, vector <Question> ques
     }
 }
 
-void ShootingGuard::def(Joueur *adversaire, QLabel &Info, vector<Question> questions, map<int, Match *> matches) {
+void ShootingGuard::def(Joueur* adversaire, QLabel &Info, vector<Question> questions, map<int, Match *> matches) {
     int bonus = 0;
     if(adversaire->getPosition()=="Point Guard"){
         bonus = 2;
@@ -55,7 +55,7 @@ void ShootingGuard::def(Joueur *adversaire, QLabel &Info, vector<Question> quest
     }
 }
 
-void ShootingGuard::vit(Joueur *adversaire, QLabel &Info, vector<Question> questions, map<int, Match *> matches) {
+void ShootingGuard::vit(Joueur* adversaire, QLabel &Info, vector<Question> questions, map<int, Match *> matches) {
     int bonus = 0;
     if(adversaire->getPosition()=="Point Guard"){
         bonus = 2;

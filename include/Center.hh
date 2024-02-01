@@ -4,6 +4,7 @@
 #include <iostream>
 #include <string>
 #include <map>
+#include <utility>
 #include <vector>
 #include "Joueur.hh"
 #include "Match.hh"
@@ -17,11 +18,8 @@ using namespace std;
 class Center : public Joueur
 {
 public:
-
-    Center() = default;
-
     Center(string nom, string prenom, string position, string imagePath, int ATQ, int DEF, int VIT)
-        : Joueur(nom, prenom, position, imagePath, ATQ, DEF, VIT) {}
+        : Joueur(std::move(nom), std::move(prenom), std::move(position), std::move(imagePath), ATQ, DEF, VIT) {}
 
     void atq(Joueur* adversaire, QLabel& Info, vector<Question> questions, map<int, Match*> matches) override;
 
